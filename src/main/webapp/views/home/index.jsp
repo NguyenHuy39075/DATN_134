@@ -1,4 +1,4 @@
-
+<!-- T0239 -->
 <!DOCTYPE html>
 <html lang="vi-VN" data-nhanh.vn-template="T0239">
 <head>
@@ -827,7 +827,7 @@
             <div class="container-pre">
                 <div class="row">
                     <div class="col-12 col-sm-6 d-flex align-items-center">
-                        <h4 class="font-weight-bold text-uppercase m-sm-0">Đăng kí nhận ưu đãi từ Sneakerhome                    </h4>
+                        <h4 class="font-weight-bold text-uppercase m-sm-0">Đang ki nhan uu dai  Sneakerhome                    </h4>
                     </div>
                     <div class="col-12 col-sm-6 d-flex align-items-center">
                         <input id="contactFormEmail" type="email" name="contact[email]" class="" placeholder="Your Email(required)" required="">
@@ -841,15 +841,15 @@
                 <div class="row">
                     <div class="col-md-3 footer-col d-none d-md-block logo-footer text-center font-weight-bold text-uppercase position-relative title beforPre">
                         <a href="javascript:void(0);" class="d-inline-block">
-                            <img class="lazyload" data-sizes="auto" src="https://web.nvnstatic.net/img/lazyLoading.gif?v=3" data-src="https://pos.nvncdn.com/eb9ddb-116318/bn/20220324_e7lyZhiE74Tbp8i0K393FsLq.png" alt="5">
+                            <img class="lazyload" data-sizes="auto" src="https://web.nvnstatic.net/img/lazyLoading.gif?v=3" data-src="https://t3.ftcdn.net/jpg/04/86/45/16/360_F_486451692_j8hWh9dz9PxVovYGX5n0Sgx8jzONjDBD.jpg" alt="5">
                         </a>
                     </div>
                     <div class="col-md-3 col-6 footer-col font-weight-bold text-uppercase position-relative title beforPre">
                         <h5 class="font-weight-bold text-uppercase position-relative title beforPre">thông tin liên hệ</h5>
                         <div class="footer-col__content">
-                            <p>Địa chỉ: 102 Thái Thịnh, Đống Đa, Hà Nội</p>
-                            <p>Email: contact@nhanh.vn</p>
-                            <p>Hotline: 1900.2818</p>
+                            <p>Địa chỉ: 83 Hoan Kiem </p>
+                            <p>Email: huyndph39075@fpt..vn</p>
+                            <p>Hotline: 1900.2004</p>
                         </div>
                     </div>
                     <div class="col-md-2 col-6 footer-col font-weight-bold text-uppercase position-relative title beforPre">
@@ -971,7 +971,7 @@
         </div>
     </div>
     <div class="iconSocial messIcon">
-        <a target="_blank" href="https://www.facebook.com/nhanh.vn/">
+        <a target="_blank" href="https://www.facebook.com/profile.php?id=100073186960827">
             <img src="https://web.nvnstatic.net/img/social/mess-color.svg?v=3" alt="mess">
         </a>
     </div>
@@ -1091,113 +1091,5 @@
 <input type="hidden" id="bussinessId" value="116318">
 <input type="hidden" value="XyS3gN2gcuuP6H7ThIpnjSRT3kySLFnsfCMGYdWP5NHTFcKQmk3wT3SR99i57gr3BYYhpO0CAIje3BUDhKFpD227JT15UgVWZueA5Ke4CCYISG2j35UXWMqjo2vDHVzrwkFFWfon6UsgyWvxRz4zTrpV5F1iqDZXsWxX6qyIAWArBtnjOsj2ImGQwTxhiZ7HSrZMz9yXh3etFo65peJRvHIDn" id="uctk" name="uctk"/>
 <input type="hidden" id="clienIp" value="58.186.66.235">
-=======
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body ng-app="myApp">
-<div ng-controller="adminCtrl" style="background-color: rgb(37, 244, 5)">
-    <!-- Khu vuc header -->
-    <!-- Copy noi dung navbar vua demo la duoc -->
-    <!-- bo sung them shadow -->
-    <nav class="navbar navbar-expand-sm bg-light shadow">
-        <div class="container-fluid">
-            <!-- logo -->
-            <a href="#">
-                <img src="https://t3.ftcdn.net/jpg/04/86/45/16/360_F_486451692_j8hWh9dz9PxVovYGX5n0Sgx8jzONjDBD.jpg" alt="" style="max-height: 80px;">
-            </a>
-            <!-- Thong tin user -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link disabled text-dark" href="#">HELLO</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled text-dark" href="#">Loguot</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- Khu vuc noi dung gom 2 phan -->
-    <!-- 1.Menu (nav) | Nam ben trai|do rong khoang 250px -->
-    <!-- 2.Noi dung chinh cua trang| nam ben phai | do rong la phan con lai width: cacl(100%) -->
-    <!-- 3. Them class .d-flex o the div cha de noi dung co len 1 dong -->
-    <!-- 4.Su li chieu cao cua menu (nav) | set css. min-height: cacl(100vh - xxpx) -->
-    <div class="d-flex">
-        <div class="bg-light pt-3" style="width: 250px; min-height: calc(100vh - 66px);">
-            <ul class="nav flex-column ">
-                <li class="nav-item">
-                    <a class="nav-link " href="qlsp">Quan Ly San Pham</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="banhang">Ban Hang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#!danh-sach-danh-muc">Quan Ly Nhan Vien</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#!tao-moi-danh-muc">Quan Ly Thong Ke</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#">Quan Ly Khuyen Mai</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Khu vuc noi dung chinh -->
-
-        <!-- Khu vuc noi dung chinh -->
-        <div class="pt-3" style="width: calc(100% - 250px);">
-            <div class="container">
-                <h3>Quan Ly San Pham</h3>
-
-                <form action="">
-                    <div>
-                        <table class="table table-bordered table-hover table-striped mt-5">
-                            <thead>
-                            <tr>
-                                <th>Doanh Thu Ngay Hom Nay</th>
-                                <th>Doanh Thu Theo Thang</th>
-                                <th>Hang Ban Duoc Thang Nay</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr>
-
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- Khu vực phân trang -->
-                    </div>
-
-                </form>
-
-            </div>
-        </div>
-    </div>
-    <div class="pt-3" style="width: calc(100% - 250px);">
-        <div class="container">
-            <div ng-view></div>
-        </div>
-    </div>
-</div>
-
-
-</div>
 </body>
 </html>
