@@ -1,12 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,12 +172,23 @@
 
 
 
-            </div>
-        </div>
-    </div>
-    <div class="pt-3" style="width: calc(100% - 250px);">
-        <div class="container">
-            <div ng-view></div>
+                <div class="row mt-4 mb-3">
+                    <div class="col-md-6 offset-md-6">
+                        <button type="button" class="btn btn-danger btn-block"><a style="color: #f7f7f7" href="/ban-hang/tt">Thanh toan</a></button>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                </div>
         </div>
     </div>
 </div>

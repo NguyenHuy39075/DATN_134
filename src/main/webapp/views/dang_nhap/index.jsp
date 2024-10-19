@@ -305,7 +305,7 @@
                     <a class="nav-link disabled text-dark" href="#">HELLO ${nhanVien}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled text-dark" href="#">Loguot</a>
+                    <a class="nav-link disabled text-dark" href="/dang-nhap/login">Loguot</a>
                 </li>
             </ul>
         </div>

@@ -25,4 +25,6 @@ public class SanPham {
     private Date ngayNhap;
     private String trangThai;
     private Integer danhMuc_id;
+    @ManyToOne @JoinColumn(name = "danhMuc_id", insertable = false, updatable = false)
+    private DanhMuc danhMuc;
 }
