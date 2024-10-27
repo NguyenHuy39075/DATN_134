@@ -23,8 +23,9 @@ public class ControllerQLSP {
         return "san_pham/index";
     }
 
+
     @RequestMapping("use")
     public String use(){
-        return "thong_ke/use";
+        return "thong_ke/index";
     }
 }

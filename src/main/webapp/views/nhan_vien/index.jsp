@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<c:if test="${not empty nhanVien}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,67 +62,68 @@
 
         <!-- Khu vuc noi dung chinh -->
 
-            <!-- Khu vuc noi dung chinh -->
-            <div class="pt-3" style="width: calc(100% - 250px);">
-                <div class="container">
-                    <h3>Quan Ly San Pham</h3>
-
-                    <form action="">
-                        <div>
-                            <table class="table table-bordered table-hover table-striped mt-5">
-                                <thead>
-                                <tr>
-                                    <th>Ma san pham</th>
-                                    <th>Ten san pham</th>
-                                    <th>Ngay nhap</th>
-                                    <th>Danh muc san pham</th>
-                                    <th>Trang thai</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-                                <c:forEach items="${dataSP}" var="sp">
-                                    <tr>
-                                        <td>${sp.maSanPham}</td>
-                                        <td>${sp.tenSanPham}</td>
-                                        <td>${sp.ngayNhap}</td>
-                                        <td>${sp.danhMuc.tenDanhMuc}</td>
-                                        <td>${sp.trangThai}</td>
-
-                                        <th style="width: 1px;" class="text-nowrap">
-                                            <button class="btn btn-primary btn-sm">Xem</button>
-                                            <button class="btn btn-warning btn-sm">Sua</button>
-                                            <button class="btn btn-danger btn-sm">Xoa</button>
-                                        </th>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-
-                            <!-- Khu vực phân trang -->
-                        </div>
-                        <div class="d-flex justify-content-center " style="margin-top: 30px;">
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
+        <!-- Khu vuc noi dung chinh -->
         <div class="pt-3" style="width: calc(100% - 250px);">
             <div class="container">
-                <div ng-view></div>
+                <h3>Quan Ly Nhan Vien</h3>
+
+                <form action="">
+                    <div>
+                        <table class="table table-bordered table-hover table-striped mt-5">
+                            <thead>
+                            <tr>
+                                <th>Ma san pham</th>
+                                <th>Ten san pham</th>
+                                <th>Ngay nhap</th>
+                                <th>Danh muc san pham</th>
+                                <th>Trang thai</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <th style="width: 1px;" class="text-nowrap">
+                                    <button class="btn btn-primary btn-sm">Xem</button>
+                                    <button class="btn btn-warning btn-sm">Sua</button>
+                                    <button class="btn btn-danger btn-sm">Xoa</button>
+                                </th>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                        <!-- Khu vực phân trang -->
+                    </div>
+                    <div class="d-flex justify-content-center " style="margin-top: 30px;">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
+    <div class="pt-3" style="width: calc(100% - 250px);">
+        <div class="container">
+            <div ng-view></div>
+        </div>
+    </div>
+</div>
 
 
 </div>
 </body>
 </html>
+</c:if>

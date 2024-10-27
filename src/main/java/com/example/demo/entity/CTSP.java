@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ManyToAny;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,5 +32,6 @@ public class CTSP {
     private ChatLieu chatLieu;
     @ManyToOne @JoinColumn(name = "sanPham_id", insertable = false, updatable = false)
     private SanPham sanPham;
+
 
 }

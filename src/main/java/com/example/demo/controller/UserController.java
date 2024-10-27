@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.SanPham;
 import com.example.demo.entity.TaiKhoan;
+import com.example.demo.repository.SanPhamRepository;
 import com.example.demo.repository.TaiKhoanRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -18,6 +21,8 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     TaiKhoanRepository repo;
+    @Autowired
+    SanPhamRepository sanPhamRepository;
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -50,7 +55,9 @@ public class UserController {
 
 
     @GetMapping("index")
-    public String home() {
+    public String home(Model model) {
+        List<SanPham> ds = this.sanPhamRepository.findAll();
+        model.addAttribute("dataSP",ds);
         return "dang_nhap/index"; // Trả về trang index.jsp
     }
 
@@ -62,4 +69,5 @@ public class UserController {
         session.invalidate();
         return "redirect:/dang-nhap/login";
     }
+
 }

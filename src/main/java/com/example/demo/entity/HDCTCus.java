@@ -1,6 +1,9 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,10 +11,10 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Entity
-@Table(name = "hoaDonChiTiet")
-public class HDCT {
+public class HDCTCus {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int hoaDon_id;
@@ -19,9 +22,5 @@ public class HDCT {
     private int soLuong;
     private float donGia;
     private float thanhTien;
-    @ManyToOne @JoinColumn(name = "ctsp_id", insertable = false, updatable = false)
-    private CTSP ctsp;
-    @ManyToOne @JoinColumn(name = "hoaDob_id",insertable = false, updatable = false)
-    private HoaDon hoaDon;
-
+    private String tenSanPham;
 }
