@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách đơn hàng</title>
+    <meta charset="utf-8">
+    <head th:replace="common/libAdmin :: libheaderadmin"></head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div>
+    <div th:replace="common/navbarAdmin :: headerAdmin"></div>
+    <div class="d-flex">
+        <div th:replace="common/navbarAdmin :: sidenavAdmin"></div>
+        <div class="pt-3" style="width: calc(100% - 250px);">
+            <div class="container">
+                <div>
+
+                </div>
+                <table id="example" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ngày lập</th>
+                            <th>Trạng thái</th>
+                            <th>Hình thức</th>
+                            <th>Tổng tiền</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="d : ${listHoaDon}">
+                            <td th:text="${d.id}"></td>
+                            <td th:text="${d.ngayLap}"></td>
+                            <td th:text="${d.trangThaiThanhToan}"></td>
+                            <td th:text="${d.hinhThucThanhToan}"></td>
+                            <td><span th:inline="text">[[${#numbers.formatDecimal(d.tongTien, 0, 'COMMA', 0, 'POINT')}]]</span></td>
+                            <td>
+                                <button th:attr="onclick=|openChiTietModal('${d.id}')|" data-bs-toggle="modal" data-bs-target="#hoadonchitiet" class="edit-btn"><i class="fa fa-eye"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('#example').DataTable();
+</script>
+<script th:inline="javascript">
+    async function openChiTietModal(iddonhang){
+        var url = '/hoa-don/chi-tiet-hoa-don?hoaDonId='+iddonhang
+        const response = await fetch(url, {
+            method: 'GET'
+        });
+        var result = await response.json();
+        console.log(result)
+        var main = '';
+        for(var i=0; i< result.length; i++){
+            main += `
+                <tr>
+                    <td>${result[i].id}</td>
+                    <td>${result[i].ctsp.sanPham.tenSanPham}</td>
+                    <td>${result[i].soLuong}</td>
+                    <td>${formatmoney(result[i].donGia)}</td>
+                    <td>${formatmoney(result[i].thanhTien)}</td>
+                </tr>
+            `
+        }
+        document.getElementById("listcthd").innerHTML = main
+    }
+
+    function formatmoney(money) {
+        const VND = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+        return VND.format(money);
+    }
+</script>
+
+<div class="modal fade" id="hoadonchitiet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Chi tiết giỏ hàng</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ma CTSP</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá tiền</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listcthd">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

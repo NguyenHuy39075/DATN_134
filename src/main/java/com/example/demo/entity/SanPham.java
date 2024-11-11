@@ -15,16 +15,23 @@ import java.util.Date;
 @Entity
 @Table(name = "sanPham")
 public class SanPham {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String tenSanPham;
+
     private String maSanPham;
+
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Temporal(TemporalType.DATE)
     private Date ngayNhap;
+
     private String trangThai;
-    private Integer danhMuc_id;
-    @ManyToOne @JoinColumn(name = "danhMuc_id", insertable = false, updatable = false)
+
+
+    @ManyToOne
+    @JoinColumn(name = "danhMuc_id")
     private DanhMuc danhMuc;
 }

@@ -58,7 +58,7 @@ public class UserController {
     public String home(Model model) {
         List<SanPham> ds = this.sanPhamRepository.findAll();
         model.addAttribute("dataSP",ds);
-        return "dang_nhap/index"; // Trả về trang index.jsp
+        return "dang_nhap/index"; // Trả về trang index.html
     }
 
 

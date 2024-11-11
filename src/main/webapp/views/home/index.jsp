@@ -147,7 +147,7 @@
                             <span class="count-cart position-absolute rounded-circle text-center font-weight-bold">0</span>
                             <div class="cart-small">
                                 <div class="cart-small__content">
-                                    <p class="m-0">Chưa có sản phẩm nào trong giỏ hàng !</p>
+                                    <p class="m-0">Chua co san pham nao trong gio hang !</p>
                                 </div>
                                 <i class="fal fa-times position-absolute"></i>
                             </div>
@@ -169,31 +169,31 @@
                                         <i class="fas fa-caret-right"></i>
                                         <ul class="sub-menu-2">
                                             <li class="lv3">
-                                                <a class="tp_menu_item" href="/mu-pc570542.html">Mũ
+                                                <a class="tp_menu_item" href="/mu-pc570542.html">Mu
                                                 </a>
                                             </li>
                                             <li class="lv3">
-                                                <a class="tp_menu_item" href="/dep-pc571346.html">Dép
+                                                <a class="tp_menu_item" href="/dep-pc571346.html">Dep
                                                 </a>
                                                 <i class="fas fa-caret-right"></i>
                                                 <ul class="sub-menu-3">
                                                     <li class="lv4">
-                                                        <a href="/dep-nike-pc571349.html">Dép Nike </a>
+                                                        <a href="/dep-nike-pc571349.html">Dep Nike </a>
                                                     </li>
                                                     <li class="lv4">
-                                                        <a href="/dep-adidas-pc571350.html">Dép Adidas </a>
+                                                        <a href="/dep-adidas-pc571350.html">Dep Adidas </a>
                                                     </li>
                                                     <li class="lv4">
-                                                        <a href="/dep-mlb-pc571351.html">Dép MLB </a>
+                                                        <a href="/dep-mlb-pc571351.html">Dep MLB </a>
                                                     </li>
                                                 </ul>
                                             </li>
                                             <li class="lv3">
-                                                <a class="tp_menu_item" href="/tat-pc570543.html">Tất
+                                                <a class="tp_menu_item" href="/tat-pc570543.html">Tat
                                                 </a>
                                             </li>
                                             <li class="lv3">
-                                                <a class="tp_menu_item" href="/kinh-pc570544.html">Kính
+                                                <a class="tp_menu_item" href="/kinh-pc570544.html">Kinh
                                                 </a>
                                             </li>
                                         </ul>
@@ -216,7 +216,7 @@
                                 <i class="fas fa-caret-down"></i>
                                 <ul class="wrap">
                                     <li class="lv2">
-                                        <a class="tp_menu_item" href="/giay-puma-pc570895.html">Giày Puma
+                                        <a class="tp_menu_item" href="/giay-puma-pc570895.html">Giay Puma
                                         </a>
                                         <i class="fas fa-caret-right"></i>
                                         <ul class="sub-menu-2">
@@ -231,7 +231,7 @@
                                         </ul>
                                     </li>
                                     <li class="lv2">
-                                        <a class="tp_menu_item" href="/giay-nike-pc570896.html">Giày Nike
+                                        <a class="tp_menu_item" href="/giay-nike-pc570896.html">Giay Nike
                                         </a>
                                         <i class="fas fa-caret-right"></i>
                                         <ul class="sub-menu-2">
@@ -255,7 +255,7 @@
                                         </ul>
                                     </li>
                                     <li class="lv2">
-                                        <a class="tp_menu_item" href="/giay-adidas-pc570897.html">Giày Adidas
+                                        <a class="tp_menu_item" href="/giay-adidas-pc570897.html">Giay Adidas
                                         </a>
                                     </li>
                                 </ul>
@@ -305,7 +305,7 @@
     <div class="container-pre news_home">
         <div class="title-home__news">
             <h2 class="text-center position-relative m-0">
-                <span class="d-inline-block text-uppercase font-weight-bold position-relative">Tin tức</span>
+                <span class="d-inline-block text-uppercase font-weight-bold position-relative">Tin tuc</span>
             </h2>
         </div>
         <div class="row bannerNews-home">
@@ -353,15 +353,15 @@
                                 <span class="number-percent font-weight-bold d-inline-block">30</span>
                                 <span class="percent">%</span>
                             </p>
-                            <p class="m-0 text-uppercase sale-text">Giá sốc</p>
+                            <p class="m-0 text-uppercase sale-text">Gia soc</p>
                         </div>
                         <a href="javascript:" class="wishlist  position-absolute">
                             <i class="fal fa-heart-circle"></i>
                         </a>
                     </div>
                     <div class="product-item__infor text-center">
-                        <span class="d-block text-uppercase product-item_cate mt-2">Tất</span>
-                        <a href="/tat-happy-socks-stripe-p37960630.html" class="d-inline-block product-item__name tp_product_name">Tất HAPPY SOCKS Stripe                        </a>
+                        <span class="d-block text-uppercase product-item_cate mt-2">Tat</span>
+                        <a href="/tat-happy-socks-stripe-p37960630.html" class="d-inline-block product-item__name tp_product_name">Tat HAPPY SOCKS Stripe                        </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">450.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">315.000 ₫</span>
@@ -380,15 +380,15 @@
                                 <span class="number-percent font-weight-bold d-inline-block">10</span>
                                 <span class="percent">%</span>
                             </p>
-                            <p class="m-0 text-uppercase sale-text">Giá sốc</p>
+                            <p class="m-0 text-uppercase sale-text">Gia soc</p>
                         </div>
                         <a href="javascript:" class="wishlist  position-absolute">
                             <i class="fal fa-heart-circle"></i>
                         </a>
                     </div>
                     <div class="product-item__infor text-center">
-                        <span class="d-block text-uppercase product-item_cate mt-2">Kính</span>
-                        <a href="/kinh-gucci-shiny-black-red-p37960606.html" class="d-inline-block product-item__name tp_product_name">Kính Gucci Shiny Black Red                        </a>
+                        <span class="d-block text-uppercase product-item_cate mt-2">Kinh</span>
+                        <a href="/kinh-gucci-shiny-black-red-p37960606.html" class="d-inline-block product-item__name tp_product_name">Kinh Gucci Shiny Black Red                        </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">4.010.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">3.590.000 ₫</span>
@@ -407,15 +407,15 @@
                                 <span class="number-percent font-weight-bold d-inline-block">10</span>
                                 <span class="percent">%</span>
                             </p>
-                            <p class="m-0 text-uppercase sale-text">Giá sốc</p>
+                            <p class="m-0 text-uppercase sale-text">Gia soc</p>
                         </div>
                         <a href="javascript:" class="wishlist  position-absolute">
                             <i class="fal fa-heart-circle"></i>
                         </a>
                     </div>
                     <div class="product-item__infor text-center">
-                        <span class="d-block text-uppercase product-item_cate mt-2">Kính</span>
-                        <a href="/kinh-gucci-havana-p37960592.html" class="d-inline-block product-item__name tp_product_name">Kính Gucci Havana                        </a>
+                        <span class="d-block text-uppercase product-item_cate mt-2">Kinh</span>
+                        <a href="/kinh-gucci-havana-p37960592.html" class="d-inline-block product-item__name tp_product_name">Kinh Gucci Havana                        </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">6.100.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">5.490.000 ₫</span>
@@ -434,7 +434,7 @@
                                 <span class="number-percent font-weight-bold d-inline-block">30</span>
                                 <span class="percent">%</span>
                             </p>
-                            <p class="m-0 text-uppercase sale-text">Giá sốc</p>
+                            <p class="m-0 text-uppercase sale-text">Gia soc</p>
                         </div>
                         <a href="javascript:" class="wishlist  position-absolute">
                             <i class="fal fa-heart-circle"></i>
@@ -442,7 +442,7 @@
                     </div>
                     <div class="product-item__infor text-center">
                         <span class="d-block text-uppercase product-item_cate mt-2">Herschel</span>
-                        <a href="/ba-lo-herschel-little-america-light-rose-p37960548.html" class="d-inline-block product-item__name tp_product_name">Ba lô Herschel Little America Light Rose                        </a>
+                        <a href="/ba-lo-herschel-little-america-light-rose-p37960548.html" class="d-inline-block product-item__name tp_product_name">Ba lo Herschel Little America Light Rose                        </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">1.163.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">814.100 ₫</span>
@@ -480,8 +480,8 @@
                         </a>
                     </div>
                     <div class="product-item__infor text-center">
-                        <span class="d-block text-uppercase product-item_cate mt-2">Kí gửi</span>
-                        <a href="/giay-nam-vans-style-36-black-skull-p37960436.html" class="d-inline-block product-item__name tp_product_name">Giày nam Vans Style 36 ‘Black Skull’                        </a>
+                        <span class="d-block text-uppercase product-item_cate mt-2">Ki gui</span>
+                        <a href="/giay-nam-vans-style-36-black-skull-p37960436.html" class="d-inline-block product-item__name tp_product_name">Giay nam Vans Style 36 ‘Black Skull’                        </a>
                         <p class="m-0">
                             <span class="d-inline-block price font-weight-bold tp_product_detail_price">1.290.000 ₫</span>
                         </p>
@@ -499,7 +499,7 @@
                         </a>
                     </div>
                     <div class="product-item__infor text-center">
-                        <span class="d-block text-uppercase product-item_cate mt-2">Quần áo</span>
+                        <span class="d-block text-uppercase product-item_cate mt-2">Quan ao</span>
                         <a href="/ao-sweater-fear-of-god-essentials-pullover-mockneck-dark-heather-oatmeal-p37960152.html" class="d-inline-block product-item__name tp_product_name">Áo Sweater Fear Of God Essentials Pullover Mockneck Dark Heather Oatmeal                        </a>
                         <p class="m-0">
                             <span class="d-inline-block price font-weight-bold tp_product_detail_price">1.900.000 ₫</span>
@@ -532,7 +532,7 @@
                                 <span class="number-percent font-weight-bold d-inline-block">30</span>
                                 <span class="percent">%</span>
                             </p>
-                            <p class="m-0 text-uppercase sale-text">Giá sốc</p>
+                            <p class="m-0 text-uppercase sale-text">Gia soc</p>
                         </div>
                         <a href="javascript:" class="wishlist  position-absolute">
                             <i class="fal fa-heart-circle"></i>
@@ -540,7 +540,7 @@
                     </div>
                     <div class="product-item__infor text-center">
                         <span class="d-block text-uppercase product-item_cate mt-2">Mũ </span>
-                        <a href="/mu-fear-of-god-essentials-rc-9fifty-cap-moonstruck-p37960765.html" class="d-inline-block product-item__name tp_product_name">Mũ Fear Of God Essentials RC 9Fifty Cap Moonstruck                            </a>
+                        <a href="/mu-fear-of-god-essentials-rc-9fifty-cap-moonstruck-p37960765.html" class="d-inline-block product-item__name tp_product_name">Mu Fear Of God Essentials RC 9Fifty Cap Moonstruck                            </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">1.250.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">875.000 ₫</span>
@@ -559,15 +559,15 @@
                                 <span class="number-percent font-weight-bold d-inline-block">15</span>
                                 <span class="percent">%</span>
                             </p>
-                            <p class="m-0 text-uppercase sale-text">Giá sốc</p>
+                            <p class="m-0 text-uppercase sale-text">Gia soc</p>
                         </div>
                         <a href="javascript:" class="wishlist  position-absolute">
                             <i class="fal fa-heart-circle"></i>
                         </a>
                     </div>
                     <div class="product-item__infor text-center">
-                        <span class="d-block text-uppercase product-item_cate mt-2">Dép MLB </span>
-                        <a href="/dep-mlb-logo-new-york-yankees-black-p37960736.html" class="d-inline-block product-item__name tp_product_name">Dép MLB Logo New York Yankees ‘Black’                            </a>
+                        <span class="d-block text-uppercase product-item_cate mt-2">Dep MLB </span>
+                        <a href="/dep-mlb-logo-new-york-yankees-black-p37960736.html" class="d-inline-block product-item__name tp_product_name">Dep MLB Logo New York Yankees ‘Black’                            </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">1.299.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">1.100.000 ₫</span>
@@ -594,7 +594,7 @@
                     </div>
                     <div class="product-item__infor text-center">
                         <span class="d-block text-uppercase product-item_cate mt-2">Tất</span>
-                        <a href="/tat-happy-socks-zebra-p37960648.html" class="d-inline-block product-item__name tp_product_name">Tất HAPPY SOCKS Zebra                            </a>
+                        <a href="/tat-happy-socks-zebra-p37960648.html" class="d-inline-block product-item__name tp_product_name">Tat HAPPY SOCKS Zebra                            </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">450.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">315.000 ₫</span>
@@ -621,7 +621,7 @@
                     </div>
                     <div class="product-item__infor text-center">
                         <span class="d-block text-uppercase product-item_cate mt-2">Tất</span>
-                        <a href="/tat-happy-socks-faded-diamond-p37960643.html" class="d-inline-block product-item__name tp_product_name">Tất HAPPY SOCKS Faded Diamond                            </a>
+                        <a href="/tat-happy-socks-faded-diamond-p37960643.html" class="d-inline-block product-item__name tp_product_name">Tat HAPPY SOCKS Faded Diamond                            </a>
                         <p class="m-0">
                             <span class="d-inline-block oldPrice">450.000 ₫</span>
                             <span class="d-inline-block price font-weight-bold tp_product_detail_priceprice-sale">315.000 ₫</span>
@@ -853,27 +853,27 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-6 footer-col font-weight-bold text-uppercase position-relative title beforPre">
-                        <h5 class="font-weight-bold text-uppercase position-relative title beforPre">chính sách</h5>
+                        <h5 class="font-weight-bold text-uppercase position-relative title beforPre">chinh sach</h5>
                         <div class="footer-col__content">
                             <p>
-                                <a href="/tra-cuu-don-hang/">Tra cứu đơn hàng</a>
+                                <a href="/tra-cuu-don-hang/">Tra cuu đon hang</a>
                             </p>
-                            <p>Hotline hỗ trợ đơn hàng: 1900.2818</p>
+                            <p>Hotline ho tro đon hang: 1900.2818</p>
                         </div>
                     </div>
                     <div class="col-md-2 col-6 footer-col font-weight-bold text-uppercase position-relative title beforPre">
-                        <h5 class="font-weight-bold text-uppercase position-relative title beforPre">hỗ trợ</h5>
+                        <h5 class="font-weight-bold text-uppercase position-relative title beforPre">ho tro</h5>
                         <div class="footer-col__content">
                             <p>
-                                <a href="http://nhanh.vn/tuyen-dung-nc4.html">Tuyển dụng</a>
+                                <a href="http://nhanh.vn/tuyen-dung-nc4.html">Tuyen dung</a>
                             </p>
                             <p>
-                                <a href="http://nhanh.vn/gioi-thieu">Giới thiệu</a>
+                                <a href="http://nhanh.vn/gioi-thieu">Gioi thieu</a>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-2 col-6 footer-col font-weight-bold text-uppercase position-relative title beforPre">
-                        <h5 class="font-weight-bold text-uppercase position-relative title beforPre">mạng xã hội</h5>
+                        <h5 class="font-weight-bold text-uppercase position-relative title beforPre">mang xa hoi</h5>
                         <div class="footer-col__content">
                             <p>
                                 <a href="http://www.facebook.com/nhanh.vn/">Facebook</a>
@@ -891,7 +891,7 @@
         </div>
         <div class="copy-right">
             <div class="container-pre">
-                <p class="m-0 text-center">Thiết kế bởi Nhanh.vn</p>
+                <p class="m-0 text-center">Thiet ke boi ...</p>
             </div>
         </div>
     </footer>
@@ -904,15 +904,15 @@
             <div class="modal-content">
                 <div class="modal-body d-flex signin-signup">
                     <div class="col-6 form-login">
-                        <h4 class="font-weight-bold text-uppercase title">đăng nhập</h4>
+                        <h4 class="font-weight-bold text-uppercase title">Dang nhap</h4>
                         <form class="login-form">
                             <ul class="m-0 p-0">
                                 <li class="li-email">
-                                    <label class="font-weight-bold">Địa chỉ email *</label>
+                                    <label class="font-weight-bold">Dia chi email *</label>
                                     <input name="email" type="text" class="txtEmail validate[required]">
                                 </li>
                                 <li>
-                                    <label class="font-weight-bold">Mật khẩu *</label>
+                                    <label class="font-weight-bold">Mat khau *</label>
                                     <input name="password" type="password" class="pwdPass validate[required]">
                                 </li>
                                 <li>
@@ -921,36 +921,36 @@
                                 <li class="login-social loginFb" rel="nofollow">
                                     <a href="/user/fbsignin?redirect=/">
                                         <i class="fab fa-facebook-f"></i>
-                                        Đăng nhập bằng Facebook
+                                        Dang nhap bang Facebook
                                     </a>
                                 </li>
                                 <li class="login-social loginGg" rel="nofollow">
                                     <a href="/user/ggsignin">
                                         <i class="fab fa-google"></i>
-                                        Đăng nhập bằng Google
+                                        Dang nhap bang Google
                                     </a>
                                 </li>
                             </ul>
                         </form>
                     </div>
                     <div class="col-6 form-signup">
-                        <h4 class="font-weight-bold text-uppercase title">đăng ký</h4>
+                        <h4 class="font-weight-bold text-uppercase title">Dang ky</h4>
                         <form class="registerForm">
                             <ul class="m-0 p-0">
                                 <li>
-                                    <label class="font-weight-bold">Họ tên *</label>
+                                    <label class="font-weight-bold">Ho ten *</label>
                                     <input name="fullName" type="text" class="txtFullName validate[required]">
                                 </li>
                                 <li class="li-email">
-                                    <label class="font-weight-bold">Địa chỉ email *</label>
+                                    <label class="font-weight-bold">Dia chi email *</label>
                                     <input name="email" type="text" class="txtEmail validate[required]">
                                 </li>
                                 <li>
-                                    <label class="font-weight-bold">Mật khẩu *</label>
+                                    <label class="font-weight-bold">Mat khau *</label>
                                     <input name="password" type="password" class="pwdPass validate[required]">
                                 </li>
                                 <li>
-                                    <input class="text-uppercase font-weight-bold" id="btn-register" type="submit" value="Đăng ký">
+                                    <input class="text-uppercase font-weight-bold" id="btn-register" type="submit" value="Dang ky">
                                 </li>
                             </ul>
                         </form>

@@ -15,9 +15,9 @@ import java.util.Date;
 @Entity
 @Table(name = "taiKhoan")
 public class TaiKhoan {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
 
     private String tenDangNhap;

@@ -17,20 +17,18 @@ public class CTSP {
     private Integer id;
     private float donGia;
     private int soLuong;
-    private int sanPham_id;
-    private int size_id;
-    private int mauSac_id;
-    private int chatLieu_id;
+
     private String moTa;
     private String anhSanPham;
     private String maBarcode;
-    @ManyToOne @JoinColumn(name = "mauSac_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "mauSac_id")
     private MauSac mauSac;
-    @ManyToOne @JoinColumn(name = "size_id", insertable = false, updatable = false)
+    @ManyToOne @JoinColumn(name = "size_id")
     private Size size;
-    @ManyToOne @JoinColumn(name = "chatLieu_id" , insertable = false, updatable = false)
+    @ManyToOne @JoinColumn(name = "chatLieu_id")
     private ChatLieu chatLieu;
-    @ManyToOne @JoinColumn(name = "sanPham_id", insertable = false, updatable = false)
+    @ManyToOne @JoinColumn(name = "sanPham_id")
     private SanPham sanPham;
 
 

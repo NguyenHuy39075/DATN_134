@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quan Ly San Pham</title>
+    <meta charset="utf-8">
+    <head th:replace="common/libAdmin :: libheaderadmin"></head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div>
+    <div th:replace="common/navbarAdmin :: headerAdmin"></div>
+    <div class="d-flex">
+        <div th:replace="common/navbarAdmin :: sidenavAdmin"></div>
+        <div class="pt-3" style="width: calc(100% - 250px);">
+            <div class="container">
+                <table id="example" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ten dang nhap</th>
+                        <th>Mat khau</th>
+                        <th>Chuc vu</th>
+                        <th>Email</th>
+                        <th>SDT</th>
+                        <th>Ngay Tao</th>
+                        <th>Trang thai</th>
+                        <th>TT</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d : ${listtk}">
+                        <td th:text="${d.id}"></td>
+                        <td th:text="${d.tenDangNhap}"></td>
+                        <td th:text="${d.matKhau}"></td>
+                        <td th:text="${d.chucVu}"></td>
+                        <td th:text="${d.email}"></td>
+                        <td th:text="${d.sdt}"></td>
+                        <td th:text="${d.ngayTao}"></td>
+                        <td th:text="${d.trangThai}"></td>
+                        <td>
+                            <button th:attr="onclick=|openChiTietModal('${d.id}')|" data-bs-toggle="modal" data-bs-target="#hoadonchitiet" class="edit-btn"><i class="fa fa-eye"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('#example').DataTable();
+</script>
+</html>

@@ -18,7 +18,7 @@ public class CustomHoaDonRepositoryImpl implements CustomHoaDonRepository {
         Number countResult = (Number) entityManager.createNativeQuery(countSql).getSingleResult();
         Long count = countResult.longValue();
 
-        if (count < 5) {
+        if (count < 10) {
             String sql = "INSERT INTO hoaDon (taiKhoan_id, kh_id, ngayLap, tongTien, trangThaiThanhToan, hinhThucThanhToan) VALUES (3, 1, CURRENT_TIMESTAMP, 0.00, 'Cho thanh toan', 'tien mat')";
             entityManager.createNativeQuery(sql).executeUpdate();
             return false; // Chưa đạt giới hạn
@@ -26,4 +26,7 @@ public class CustomHoaDonRepositoryImpl implements CustomHoaDonRepository {
             return true; // Đã đạt giới hạn
         }
     }
+
+
+
 }

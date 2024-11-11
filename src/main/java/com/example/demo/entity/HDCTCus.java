@@ -17,10 +17,9 @@ import lombok.Setter;
 public class HDCTCus {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private int hoaDon_id;
-    private int ctsp_id;
     private int soLuong;
     private float donGia;
     private float thanhTien;
     private String tenSanPham;
+    private String  trangThaiThanhToan;
 }

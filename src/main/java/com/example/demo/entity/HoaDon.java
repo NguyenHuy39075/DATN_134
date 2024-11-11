@@ -18,18 +18,21 @@ public class HoaDon {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer id;
-    private int taiKhoan_id;
-    private int kh_id;
+//    private int taiKhoan_id;
+//    private int kh_id;
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Temporal(TemporalType.DATE)
     private Date ngayLap;
     private float tongTien;
     private String trangThaiThanhToan;
     private String hinhThucThanhToan;
+    private String hoTen;
+    private String soDienThoai;
     @ManyToOne
-    @JoinColumn(name = "taiKhoan_id", insertable = false, updatable = false)
+    @JoinColumn(name = "taiKhoan_id")
     private TaiKhoan taiKhoan;
 
-
-
+    @ManyToOne
+    @JoinColumn(name = "kh_id")
+    private KhachHang khachHang;
 }

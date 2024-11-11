@@ -21,7 +21,7 @@ public class HDCT {
     private float thanhTien;
     @ManyToOne @JoinColumn(name = "ctsp_id", insertable = false, updatable = false)
     private CTSP ctsp;
-    @ManyToOne @JoinColumn(name = "hoaDob_id",insertable = false, updatable = false)
+    @ManyToOne @JoinColumn(name = "hoaDon_id",insertable = false, updatable = false)
     private HoaDon hoaDon;
 
 }
