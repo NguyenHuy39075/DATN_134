@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:if="${session.nhanVien != null}">
 <head>
     <title>Tạo đơn hàng</title>
     <meta charset="utf-8">
@@ -59,7 +60,7 @@
                                 <tr th:each="d : ${listSanPham}">
                                     <td th:text="${d.maSanPham}"></td>
                                     <td th:text="${d.tenSanPham}"></td>
-                                    <td th:text="${d.danhMuc.tenDanhMuc}"></td>
+                                    <td th:text="${d.danhMuc != null ? d.danhMuc.tenDanhMuc : 'Chưa có danh mục'}">
                                     <td>
                                         <button th:attr="onclick=|openChiTietModal('${d.id}')|" data-bs-toggle="modal" data-bs-target="#hoadonchitiet" class="edit-btn"><i class="fa fa-eye"></i></button>
                                     </td>
@@ -274,5 +275,12 @@
             </div>
         </div>
     </div>
+</div>
+
+    <!-- Nội dung dành cho người dùng đã đăng nhập -->
+</div>
+
+<div th:if="${session.nhanVien == null}">
+    <p>Vui lòng <a th:href="@{/dang-nhap/login}"> đăng nhập</a>.</p>
 </div>
 </html>

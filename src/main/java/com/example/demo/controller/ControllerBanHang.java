@@ -68,64 +68,9 @@ public class ControllerBanHang {
 
 
 
-    @GetMapping("/detail/{id}")
-    public String showInvoiceDetail(@PathVariable("id") Integer id, Model model) {
-        HoaDon hoaDon = hoaDonRepo.findById(id).orElse(null);
-        idHoaDon = id;
-        if (hoaDon != null) {
-            // Gọi phương thức fillHDCT với id và gán vào listHoaDonChiTiet
-            listHoaDonChiTiet = hdctRepository.findByHoaDonId(id);
-            model.addAttribute("hoaDon", hoaDon);
-            model.addAttribute("datahd", listHoaDonChiTiet);  // Truyền danh sách chi tiết hóa đơn vào model
-        }
 
-        // Lấy danh sách hóa đơn để giữ lại dữ liệu của bảng phía trên
-        listHoaDon = hoaDonService.getHoaDonsChoThanhToan();
-        model.addAttribute("listHoaDon", listHoaDon);
 
-        // Lấy lại dữ liệu từ các bảng khác và truyền vào model để không bị mất khi load lại trang
-        List<HoaDon> ds = hoaDonService.getHoaDonsChoThanhToan();
-        model.addAttribute("data", ds);
 
-        List<CTSP> dd = ctsp_repository.findAll();
-        model.addAttribute("dataSP", dd);
-
-        return "ban_hang/banhang";
-    }
-
-    @PostMapping("/addhdctt")
-    public String addd(@RequestParam("id") Integer id) {
-        try {
-            // Lấy thông tin sản phẩm (CTSP) từ ID được truyền vào
-            CTSP ctsp = this.ctsp_repository.findById(id).orElse(null);
-
-            if (ctsp == null) {
-                System.out.println("CTSP không tồn tại.");
-                return "ban_hang/banhang";
-            }
-
-            // Tạo HDCT mới và thiết lập các thuộc tính
-            HDCT hdct = new HDCT();
-            HoaDon hoaDon = new HoaDon();
-            hoaDon.setId(idHoaDon); // Sử dụng idHoaDon đã được truyền vào
-            hdct.setHoaDon(hoaDon);
-            hdct.setCtsp(ctsp);
-            hdct.setSoLuong(1);
-            hdct.setDonGia(ctsp.getDonGia());
-            hdct.setThanhTien(ctsp.getDonGia());
-
-            // Lưu HDCT vào cơ sở dữ liệu
-            this.hdctRepository.save(hdct);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(id);
-            System.out.println(idHoaDon+"=====================================================================================================");
-        }
-
-        // Chuyển hướng về trang banhang sau khi thêm mới thành công
-        return "ban_hang/banhang";
-    }
 
 
 
@@ -214,9 +159,22 @@ public class ControllerBanHang {
     @PostMapping("/tao-don-hang-post")
     @ResponseBody
     public void taoDonHang(@RequestBody DonHangDto donHangDto, HttpSession session){
-        String username = session.getAttribute("nhanVien").toString();
-        TaiKhoan taiKhoan = taiKhoanRepository.findByTenDangNhap(username).get();
-        System.out.println("id tai khoan: "+taiKhoan.getId());
+        TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("nhanVien");
+
+        // Kiểm tra null để tránh NullPointerException
+
+
+        // Lấy username từ đối tượng TaiKhoan
+        String username = taiKhoan.getTenDangNhap();
+        System.out.println("Username: " + username);
+
+        // Truy xuất lại đối tượng TaiKhoan từ repository nếu cần
+        TaiKhoan taiKhoanFromDb = taiKhoanRepository.findByTenDangNhap(username).orElse(null);
+        if (taiKhoanFromDb != null) {
+            System.out.println("ID tài khoản: " + taiKhoanFromDb.getId());
+        } else {
+            System.out.println("Không tìm thấy tài khoản!");
+        }
         Float tongTien = 0F;
         for(SpctDto d : donHangDto.getSpct()){
             CTSP ctsp = ctsp_repository.findById(d.getIdCtsp()).get();
@@ -253,16 +211,7 @@ public class ControllerBanHang {
             ctsp.setSoLuong(ctsp.getSoLuong() - d.getQuantity());
             ctsp_repository.save(ctsp);
         }
-//        for (SpctDto d : donHangDto.getSpct()){
-//            ThanhToan thanhToan = new ThanhToan();
-//            HoaDon hoaDon1 = new HoaDon();
-//            thanhToan.setHoaDon_id(hoaDon1.getId());
-//            thanhToan.setNgayThanhToan(new Date(System.currentTimeMillis()));
-//            thanhToan.setSoTien(tongTien);
-//            thanhToan.setHinhThucThanhToan(hoaDon1.getHinhThucThanhToan());
-//            thanhToan.setTrangThai("Truc tiep");
-//
-//        }
+
 
     }
 

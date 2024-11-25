@@ -28,9 +28,12 @@ public class HoaDon {
     private String hinhThucThanhToan;
     private String hoTen;
     private String soDienThoai;
+    private String ghiChu;
     @ManyToOne
     @JoinColumn(name = "taiKhoan_id")
     private TaiKhoan taiKhoan;
+
+
 
     @ManyToOne
     @JoinColumn(name = "kh_id")

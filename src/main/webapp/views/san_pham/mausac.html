@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:if="${session.nhanVien != null}">
+    <div th:if="${session.nhanVien.chucVu == 'QL'}">
+
+        <head>
+            <title>Quan Ly Mau Sac</title>
+            <meta charset="utf-8">
+            <head th:replace="common/libAdmin :: libheaderadmin"></head>
+            <link rel="stylesheet" type="text/css" href="/css/style.css">
+        </head>
+        <body>
+        <div>
+            <div th:replace="common/navbarAdmin :: headerAdmin"></div>
+            <div class="d-flex">
+                <div th:replace="common/navbarAdmin :: sidenavAdmin"></div>
+                <div class="pt-3" style="width: calc(100% - 250px);">
+                    <div class="container">
+                        <table id="example" class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên màu</th>
+                                <th>Ghi chú</th>
+                                <th>TT</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="d : ${listms}">
+                                <td th:text="${d.id}"></td>
+                                <td th:text="${d.tenMau}"></td>
+                                <td th:text="${d.moTa}"></td>
+                                <td>
+                                    <button th:onclick="'loadMSData(' + ${d.id} + ')'" class="btn btn-warning">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-13">
+                                <label class="lb-form">Tên màu</label>
+                                <input id="tenMau" class="form-control" required>
+                                <span id="errortenMau" class="text-danger"></span>
+
+                                <label class="lb-form">Ghi chú</label>
+                                <input id="moTa" class="form-control" required>
+                                <span id="errorMoTa" class="text-danger"></span>
+                                <br>
+                                <button onclick="validateForm('add')" class="btn btn-primary">Add</button>
+                                <button onclick="validateForm('update')" class="btn btn-warning">Update</button>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </body>
+        <script>
+            $('#example').DataTable();
+        </script>
+
+        <script th:inline="javascript">
+
+            function validateForm(action) {
+                // Clear error messages
+                document.getElementById("errortenMau").innerText = "";
+                document.getElementById("errorMoTa").innerText = "";
+
+
+
+                // Get values
+                const tenMau = document.getElementById("tenMau").value;
+                const moTa = document.getElementById("moTa").value;
+
+                let isValid = true;
+
+                // Validate fields
+                if (tenMau.trim() === "") {
+                    document.getElementById("errortenMau").innerText = "Màu sắc không được để trống.";
+                    isValid = false;
+                }
+                if (moTa.trim() === "") {
+                    document.getElementById("errorMoTa").innerText = "không được để trống.";
+                    isValid = false;
+                }
+
+
+
+                // If all fields are valid, proceed with action
+                if (isValid) {
+                    if (action === 'add') {
+                        themMS();
+                    } else if (action === 'update') {
+                        capNhatS(window.currentMsId);
+                    }
+                }
+            }
+
+            async function loadMSData(idms) {
+                console.log("ID màu sắc nhận được:", idms);
+                try {
+                    const id = parseInt(idms, 10);
+                    if (isNaN(id)) {
+                        console.error("ID màu sắc không hợp lệ:", idms);
+                        alert("ID màu sắc không hợp lệ.");
+                        return;
+                    }
+                    // Gửi yêu cầu GET đến server để lấy dữ liệu
+                    const response = await fetch(`/san-pham/danh-sach-mau-sac/${id}`);
+
+                    if (!response.ok) {
+                        console.error("Lỗi khi tải dữ liệu màu sắc:", response.statusText);
+                        alert(`Không thể tải dữ liệu màu sắc. Mã lỗi: ${response.status}`);
+                        return;
+                    }
+
+                    const mauSac = await response.json();
+
+                    // Kiểm tra dữ liệu trả về
+                    if (!mauSac.tenMau || !mauSac.moTa) {
+                        console.error("Dữ liệu trả về không hợp lệ:", mauSac);
+                        alert("Không thể tải dữ liệu màu sắc. Vui lòng kiểm tra lại.");
+                        return;
+                    }
+
+                    // Điền dữ liệu vào form
+                    document.getElementById("tenMau").value = mauSac.tenMau;
+                    document.getElementById("moTa").value = mauSac.moTa;
+
+                    window.currentMsId = idms; // Lưu lại ID màu sắc hiện tại
+                } catch (error) {
+                    console.error("Đã có lỗi xảy ra khi tải dữ liệu màu sắc:", error);
+                    alert("Không thể tải dữ liệu màu sắc.");
+                }
+            }
+
+            async function themMS() {
+                var con = window.confirm("Bạn có chắc chắn muốn thêm màu sắc?");
+                if (con == false) {
+                    return;
+                }
+
+                // Thu thập dữ liệu từ form
+                var payload = {
+                    "tenMau": document.getElementById("tenMau").value,
+                    "moTa": document.getElementById("moTa").value,
+
+                };
+
+                // Gửi dữ liệu đến server (POST request)
+                const response = await fetch("/san-pham/them-mau-sac", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload) // Chuyển dữ liệu thành JSON
+                });
+
+                // Kiểm tra phản hồi từ server
+                if (response.ok) {
+                    alert("Màu sắc đã được thêm thành công!");
+                    // Chuyển hướng về trang hiển thị danh sách sản phẩm
+                    window.location.href = "/san-pham/mau-sac";
+                } else {
+                    alert("Đã có lỗi xảy ra khi thêm màu sắc.");
+                }
+            }
+
+            async function capNhatS(idms) {
+                var con = window.confirm("Bạn có chắc chắn muốn cập nhật màu sắc?");
+                if (con == false) {
+                    return;
+                }
+
+                // Thu thập dữ liệu từ form
+                var payload = {
+                    "tenMau": document.getElementById("tenMau").value,
+                    "moTa": document.getElementById("moTa").value,
+
+                };
+
+                // Gửi dữ liệu đến server (PUT request)
+                const response = await fetch(`/san-pham/cap-nhat-mau-sac/${idms}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload) // Chuyển dữ liệu thành JSON
+                });
+
+                // Kiểm tra phản hồi từ server
+                if (response.ok) {
+                    alert("Màu sắc đã được cập nhật thành công!");
+                    // Chuyển hướng về trang hiển thị danh sách sản phẩm
+                    window.location.href = "/san-pham/mau-sac";
+                } else {
+                    alert("Đã có lỗi xảy ra khi cập nhật màu sắc.");
+                }
+            }
+
+
+        </script>
+
+
+        <!-- Nội dung dành cho Quản Lý -->
+        <p>Chào mừng Quản Lý</p>
+    </div>
+    <div th:if="${session.nhanVien.chucVu != 'QL'}">
+        <p>Bạn không có quyền truy cập trang này.</p>
+    </div>
+</div>
+<div th:if="${session.nhanVien == null}">
+    <p>Vui lòng <a th:href="@{/dang-nhap/login}">đăng nhập</a>.</p>
+</div>
+
+</html>

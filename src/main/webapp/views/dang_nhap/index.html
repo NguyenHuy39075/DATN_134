@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:if="${session.nhanVien != null}">
 <head>
     <title>Index</title>
     <meta charset="utf-8">
@@ -19,6 +20,7 @@
         }
     </style>
 </head>
+
 <body>
 <div>
     <div th:replace="common/navbarAdmin :: headerAdmin"></div>
@@ -31,4 +33,14 @@
     </div>
 </div>
 </body>
+
+    <!-- Nội dung dành cho người dùng đã đăng nhập -->
+</div>
+
+
+<div th:if="${session.nhanVien == null}">
+    <p>Vui lòng <a th:href="@{/dang-nhap/login}">đăng nhập</a>.</p>
+</div>
 </html>
+
+

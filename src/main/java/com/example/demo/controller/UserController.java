@@ -26,40 +26,54 @@ public class UserController {
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
-        model.addAttribute("nv", new TaiKhoan());
+        model.addAttribute("NV", new TaiKhoan());
         return "dang_nhap/login";
     }
 
     @PostMapping("/LoginServlet")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        Model model, HttpSession session) {
+                        HttpSession session, Model model) {
         Optional<TaiKhoan> optionalTaiKhoan = repo.findByTenDangNhap(username);
-
         if (optionalTaiKhoan.isPresent()) {
             TaiKhoan taiKhoan = optionalTaiKhoan.get();
             if (taiKhoan.getMatKhau().equals(password)) {
-                String anVien = (String) session.getAttribute("nhanVien");
-                model.addAttribute("nhanVien", anVien);
-                session.setAttribute("nhanVien", username);
-
-                model.addAttribute("admin", password);
-                return "redirect:/dang-nhap/index"; // Chuyển hướng sau khi đăng nhập thành công
+                session.setAttribute("nhanVien", taiKhoan); // Lưu cả đối tượng TaiKhoan vào session
+                return "redirect:/dang-nhap/index";
             }
         }
 
-        // Trường hợp username hoặc password không hợp lệ
         model.addAttribute("error", "Invalid username or password");
         return "dang_nhap/login";
     }
 
 
-    @GetMapping("index")
-    public String home(Model model) {
-        List<SanPham> ds = this.sanPhamRepository.findAll();
-        model.addAttribute("dataSP",ds);
-        return "dang_nhap/index"; // Trả về trang index.html
+
+    @GetMapping("/index")
+    public String home(HttpSession session, Model model) {
+        TaiKhoan nhanVien = (TaiKhoan) session.getAttribute("nhanVien");
+        if (nhanVien == null) {
+            return "redirect:/dang-nhap/login"; // Chuyển hướng về trang đăng nhập nếu chưa đăng nhập
+        }
+        model.addAttribute("nhanVien", nhanVien); // Truyền đối tượng TaiKhoan vào model
+        return "dang_nhap/index"; // Trả về trang index.html nếu đã đăng nhập
     }
+
+    @GetMapping("/hien-thi")
+    public String hienThi(HttpSession session, Model model) {
+        // Lấy thông tin người dùng từ session
+        TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("nhanVien");
+        if (taiKhoan == null || !taiKhoan.getChucVu().equalsIgnoreCase("QL")) {
+            return "redirect:/dang-nhap/login"; // Chuyển hướng nếu không phải Quản Lý
+        }
+
+        // Nếu là Quản Lý, trả về danh sách nhân viên
+        List<TaiKhoan> ls = repo.findAll();
+        model.addAttribute("listtk", ls);
+        return "nhan_vien/index";
+    }
+
+
 
 
 
@@ -69,5 +83,7 @@ public class UserController {
         session.invalidate();
         return "redirect:/dang-nhap/login";
     }
+
+
 
 }

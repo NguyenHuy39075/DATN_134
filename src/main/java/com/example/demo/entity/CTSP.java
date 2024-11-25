@@ -15,7 +15,7 @@ import org.hibernate.annotations.ManyToAny;
 public class CTSP {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private float donGia;
+    private Float donGia;
     private int soLuong;
 
     private String moTa;
@@ -30,6 +30,7 @@ public class CTSP {
     private ChatLieu chatLieu;
     @ManyToOne @JoinColumn(name = "sanPham_id")
     private SanPham sanPham;
+
 
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -25,8 +26,8 @@ public class SanPham {
     private String maSanPham;
 
     @DateTimeFormat(pattern = "yyyy/MM/dd")
-    @Temporal(TemporalType.DATE)
-    private Date ngayNhap;
+    private LocalDate ngayNhap;
+
 
     private String trangThai;
 
@@ -34,4 +35,7 @@ public class SanPham {
     @ManyToOne
     @JoinColumn(name = "danhMuc_id")
     private DanhMuc danhMuc;
+
+
+
 }

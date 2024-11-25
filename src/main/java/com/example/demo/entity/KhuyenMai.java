@@ -7,33 +7,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
 @Entity
-@Table(name = "taiKhoan")
-public class TaiKhoan {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "khuyenMai")
+public class KhuyenMai {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String tenDangNhap;
-
-    private String matKhau;
-
-    private String chucVu;
-
-    private String email;
-
-    private String sdt;
-
+    private String tenKhuyenMai;
+    private String moTa;
+    private double giamGia;
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     @Temporal(TemporalType.DATE)
-    private LocalDate ngayTao;
-
+    private Date ngayBatDau;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @Temporal(TemporalType.DATE)
+    private Date ngayKetThuc;
     private String trangThai;
+    @ManyToOne @JoinColumn(name = "hoaDon_id")
+    private HoaDon hoaDon;
 }

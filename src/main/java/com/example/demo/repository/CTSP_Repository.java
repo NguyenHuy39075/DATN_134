@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CTSP_Repository extends JpaRepository<CTSP, Integer> {
     @Query("SELECT h FROM CTSP h WHERE h.id = :ctspId")
@@ -18,4 +19,8 @@ public interface CTSP_Repository extends JpaRepository<CTSP, Integer> {
 
     @Query("SELECT h FROM CTSP h WHERE h.sanPham.id = :sanPhamId")
     List<CTSP> findBySanPhamId(@Param("sanPhamId") Integer sanPhamId);
+
+    @Query("SELECT h FROM CTSP h WHERE h.sanPham.id = :id")
+    Optional<CTSP> findBySPId(@Param("id") Integer id);
+
 }

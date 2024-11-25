@@ -17,4 +17,6 @@ public class DonHangDto {
     private String soDienThoai;
 
     private String hinhThucThanhToan;
+
+    private Integer discountId;
 }
