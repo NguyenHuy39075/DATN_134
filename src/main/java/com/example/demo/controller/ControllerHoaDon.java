@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("hoa-don")
@@ -27,17 +29,23 @@ public class ControllerHoaDon {
     List<HoaDon> listHoaDon = new ArrayList<>();
 
     @GetMapping("/hien-thi")
-    public String viewListDonHang(Model model, @RequestParam(required = false) String trangThai){
-        List<HoaDon> hoaDonList = null;
-        if(trangThai == null){
-            hoaDonList = hoaDonRepo.findAll();
+    public String viewListDonHang(Model model, @RequestParam(required = false) String trangThai) {
+        List<HoaDon> hoaDonList;
+
+        if (trangThai == null) {
+            hoaDonList = hoaDonRepo.findAllByOrderByIdDesc();
+        } else {
+            hoaDonList = hoaDonRepo.findByTrangThaiThanhToanOrderByIdDesc(trangThai);
         }
-        else{
-            hoaDonList = hoaDonRepo.findByTrangThaiThanhToan(trangThai);
-        }
+
+        // In ra ID danh sách trong console
+        hoaDonList.forEach(hd -> System.out.println("HoaDon ID: " + hd.getId()));
+
         model.addAttribute("listHoaDon", hoaDonList);
         return "/hoa_don/index";
     }
+
+
 
     @GetMapping("/chi-tiet-hoa-don")
     @ResponseBody

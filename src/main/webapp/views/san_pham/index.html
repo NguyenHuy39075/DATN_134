@@ -104,7 +104,7 @@
 
 
 
-    function validateForm(action) {
+    async function validateForm(action) {
         // Clear error messages
         document.getElementById("errorMaSanPham").innerText = "";
         document.getElementById("errorTenSanPham").innerText = "";
@@ -121,15 +121,23 @@
 
         let isValid = true;
 
-        // Validate fields
+        // Validate mã sản phẩm (bỏ qua khi hành động là update)
         if (maSanPham.trim() === "") {
             document.getElementById("errorMaSanPham").innerText = "Mã sản phẩm không được để trống.";
             isValid = false;
-        } else if (isNaN(maSanPham) || parseInt(maSanPham) < 0) {
-            document.getElementById("errorMaSanPham").innerText = "Mã sản phẩm không được là số âm.";
+        } else if (hasNegativeNumber(maSanPham)) {
+            document.getElementById("errorMaSanPham").innerText = "Mã sản phẩm không được chứa số âm.";
             isValid = false;
+        } else if (action !== 'update') {
+            // Check mã sản phẩm trùng chỉ khi không phải hành động update
+            const isDuplicate = await checkMaSanPham(maSanPham);
+            if (isDuplicate) {
+                document.getElementById("errorMaSanPham").innerText = "Mã sản phẩm đã tồn tại.";
+                isValid = false;
+            }
         }
 
+        // Validate tên sản phẩm
         if (tenSanPham.trim() === "") {
             document.getElementById("errorTenSanPham").innerText = "Tên sản phẩm không được để trống.";
             isValid = false;
@@ -138,16 +146,19 @@
             isValid = false;
         }
 
+        // Validate ngày nhập
         if (ngayNhap === "") {
             document.getElementById("errorNgayNhap").innerText = "Ngày nhập không được để trống.";
             isValid = false;
         }
 
+        // Validate danh mục
         if (danhMuc === "") {
             document.getElementById("errorDanhMuc").innerText = "Vui lòng chọn danh mục.";
             isValid = false;
         }
 
+        // Validate trạng thái
         if (trangThai === "") {
             document.getElementById("errorTrangThai").innerText = "Vui lòng chọn trạng thái.";
             isValid = false;
@@ -162,6 +173,23 @@
             }
         }
     }
+
+
+    // Hàm gọi API kiểm tra mã sản phẩm trùng
+    async function checkMaSanPham(maSanPham) {
+        try {
+            const response = await fetch(`/san-pham/check-ma-san-pham?maSanPham=${encodeURIComponent(maSanPham)}`);
+            if (response.ok) {
+                return await response.json(); // Trả về true nếu mã trùng
+            }
+            console.error("Failed to check mã sản phẩm.");
+            return false;
+        } catch (error) {
+            console.error("Error checking mã sản phẩm:", error);
+            return false;
+        }
+    }
+
 
 
 

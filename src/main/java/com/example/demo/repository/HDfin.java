@@ -10,5 +10,9 @@ public interface HDfin extends JpaRepository<HoaDon, Integer> {
 
     List<HoaDon> findByTrangThaiThanhToan(String trangThai);
 
+    List<HoaDon> findAllByOrderByIdDesc();
+    List<HoaDon> findByTrangThaiThanhToanOrderByIdDesc(String trangThai);
+
+
 
 }

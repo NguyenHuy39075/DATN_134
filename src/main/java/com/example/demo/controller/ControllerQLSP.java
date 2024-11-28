@@ -61,6 +61,14 @@ public class ControllerQLSP {
         model.addAttribute("dataSP", ds);
         return "san_pham/index";
     }
+
+    @GetMapping("/check-ma-san-pham")
+    @ResponseBody
+    public boolean checkMaSanPham(@RequestParam("maSanPham") String maSanPham) {
+        return sanPhamRepository.existsByMaSanPham(maSanPham);
+    }
+
+
     @GetMapping("ds-ctsp/{id}")
     public String iiii(@PathVariable("id") Integer id, Model model){
         List<CTSP> ctsps = this.ctsp_repository.findBySanPhamId(id);
@@ -135,6 +143,7 @@ public class ControllerQLSP {
             sanPham.setTenSanPham(spDto.getTenSanPham());
             sanPham.setNgayNhap(spDto.getNgayNhap());
             sanPham.setTrangThai(spDto.getTrangThai());
+
 
             sanPhamRepository.save(sanPham);
             redirectAttributes.addFlashAttribute("message", "Thêm sản phẩm thành công!");

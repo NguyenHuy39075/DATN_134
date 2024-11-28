@@ -135,10 +135,14 @@ public class ControllerBanHang {
         return "redirect:/ban-hang/hien-thi";
     }
 
+
+
     @GetMapping("/tao-don-hang")
     public String taoDonHangView(Model model){
-        List<SanPham> list = sanPhamRepository.findAll();
-        model.addAttribute("listSanPham", list);
+        List<SanPham> ds = this.sanPhamRepository.findByTrangThai("Con hang");
+        // Kiểm tra xem danh mục có được gán đúng không
+        ds.forEach(sp -> System.out.println(sp.getDanhMuc()));
+        model.addAttribute("listSanPham", ds);
         return "/ban_hang/taodonhang";
     }
 

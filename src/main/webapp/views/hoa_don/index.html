@@ -20,6 +20,7 @@
                 <table id="example" class="table table-bordered">
                     <thead>
                         <tr>
+                            <td>TT</td>
                             <th>ID</th>
                             <th>Tên nhân viên</th>
                             <th>Ngày lập</th>
@@ -30,17 +31,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="d : ${listHoaDon}">
-                            <td th:text="${d.id}"></td>
-                            <td th:text="${d.taiKhoan.tenDangNhap}"></td>
-                            <td th:text="${d.ngayLap}"></td>
-                            <td th:text="${d.trangThaiThanhToan}"></td>
-                            <td th:text="${d.hinhThucThanhToan}"></td>
-                            <td><span th:inline="text">[[${#numbers.formatDecimal(d.tongTien, 0, 'COMMA', 0, 'POINT')}]]</span></td>
-                            <td>
-                                <button th:attr="onclick=|openChiTietModal('${d.id}')|" data-bs-toggle="modal" data-bs-target="#hoadonchitiet" class="edit-btn"><i class="fa fa-eye"></i></button>
-                            </td>
-                        </tr>
+                    <tr th:each="hoaDon, iterStat : ${listHoaDon}">
+                        <!-- Cột số thứ tự -->
+                        <td th:text="${iterStat.index + 1}"></td> <!-- Bắt đầu từ 1 -->
+
+                        <!-- Cột thông tin hóa đơn -->
+                        <td th:text="${hoaDon.id}"></td>
+                        <td th:text="${hoaDon.taiKhoan.tenDangNhap}"></td>
+                        <td th:text="${hoaDon.ngayLap}"></td>
+                        <td th:text="${hoaDon.trangThaiThanhToan}"></td>
+                        <td th:text="${hoaDon.hinhThucThanhToan}"></td>
+                        <td><span th:inline="text">[[${#numbers.formatDecimal(hoaDon.tongTien, 0, 'COMMA', 0, 'POINT')}]]</span></td>
+
+                        <!-- Cột nút thao tác -->
+                        <td>
+                            <button th:attr="onclick=|openChiTietModal('${hoaDon.id}')|"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#hoadonchitiet"
+                                    class="edit-btn">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
