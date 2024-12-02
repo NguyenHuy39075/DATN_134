@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -53,6 +54,42 @@ public class ControllerHoaDon {
         List<HDCT> result = hdctRepository.findByHoaDonId(hoaDonId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
+    @GetMapping("doanh-thu")
+    public String dt(){
+
+        return "hoa_don/doanhthu";
+    }
+
+
+
+    @GetMapping("/doanh-thu/ngay")
+    @ResponseBody
+    public ResponseEntity<?> doanhThuTheoNgay(@RequestParam String ngay) {
+        try {
+            LocalDate date = LocalDate.parse(ngay); // Định dạng yyyy-MM-dd
+            Double doanhThu = hoaDonRepo.tinhDoanhThuTheoNgay(date);
+            return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Ngày không hợp lệ hoặc xảy ra lỗi khi xử lý!", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/doanh-thu/thang")
+    @ResponseBody
+    public ResponseEntity<?> doanhThuTheoThang(@RequestParam int thang, @RequestParam int nam) {
+        Double doanhThu = hoaDonRepo.tinhDoanhThuTheoThang(thang, nam);
+        return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+    }
+
+    @GetMapping("/doanh-thu/nam")
+    @ResponseBody
+    public ResponseEntity<?> doanhThuTheoNam(@RequestParam int nam) {
+        Double doanhThu = hoaDonRepo.tinhDoanhThuTheoNam(nam);
+        return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+    }
+
 
 
 

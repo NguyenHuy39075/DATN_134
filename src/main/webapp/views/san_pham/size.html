@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:if="${session.nhanVien != null}">
-    <div th:if="${session.nhanVien.chucVu == 'QL'}">
+
 
         <head>
             <title>Quan Ly Kich Thuoc</title>
@@ -204,12 +204,7 @@
         </script>
 
 
-        <!-- Nội dung dành cho Quản Lý -->
-        <p>Chào mừng Quản Lý</p>
-    </div>
-    <div th:if="${session.nhanVien.chucVu != 'QL'}">
-        <p>Bạn không có quyền truy cập trang này.</p>
-    </div>
+
 </div>
 <div th:if="${session.nhanVien == null}">
     <p>Vui lòng <a th:href="@{/dang-nhap/login}">đăng nhập</a>.</p>
