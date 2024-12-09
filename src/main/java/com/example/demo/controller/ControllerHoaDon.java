@@ -27,24 +27,29 @@ public class ControllerHoaDon {
     @Autowired
     private HDCT_Repository hdctRepository;
 
-    List<HoaDon> listHoaDon = new ArrayList<>();
+
 
     @GetMapping("/hien-thi")
     public String viewListDonHang(Model model, @RequestParam(required = false) String trangThai) {
+        System.out.println("TrangThai nhận được: " + trangThai); // Debug giá trị
         List<HoaDon> hoaDonList;
 
-        if (trangThai == null) {
-            hoaDonList = hoaDonRepo.findAllByOrderByIdDesc();
+        if ("Da thanh toan".equalsIgnoreCase(trangThai != null ? trangThai.trim() : "")) {
+            hoaDonList = hoaDonRepo.findByTrangThaiThanhToanOrderByIdDesc("Da thanh toan");
         } else {
-            hoaDonList = hoaDonRepo.findByTrangThaiThanhToanOrderByIdDesc(trangThai);
+            hoaDonList = hoaDonRepo.findAllByOrderByIdDesc();
         }
 
-        // In ra ID danh sách trong console
-        hoaDonList.forEach(hd -> System.out.println("HoaDon ID: " + hd.getId()));
+        // Xác minh danh sách trả về chỉ chứa trạng thái mong muốn
+        hoaDonList = hoaDonList.stream()
+                .filter(hd -> "Da thanh toan".equalsIgnoreCase(hd.getTrangThaiThanhToan()))
+                .collect(Collectors.toList());
 
         model.addAttribute("listHoaDon", hoaDonList);
         return "/hoa_don/index";
     }
+
+
 
 
 
@@ -65,7 +70,6 @@ public class ControllerHoaDon {
 
 
     @GetMapping("/doanh-thu/ngay")
-    @ResponseBody
     public ResponseEntity<?> doanhThuTheoNgay(@RequestParam String ngay) {
         try {
             LocalDate date = LocalDate.parse(ngay); // Định dạng yyyy-MM-dd
@@ -76,18 +80,26 @@ public class ControllerHoaDon {
         }
     }
 
+    // Tính doanh thu theo tháng
     @GetMapping("/doanh-thu/thang")
-    @ResponseBody
     public ResponseEntity<?> doanhThuTheoThang(@RequestParam int thang, @RequestParam int nam) {
-        Double doanhThu = hoaDonRepo.tinhDoanhThuTheoThang(thang, nam);
-        return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+        try {
+            Double doanhThu = hoaDonRepo.tinhDoanhThuTheoThang(thang, nam);
+            return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Tháng hoặc năm không hợp lệ!", HttpStatus.BAD_REQUEST);
+        }
     }
 
+    // Tính doanh thu theo năm
     @GetMapping("/doanh-thu/nam")
-    @ResponseBody
     public ResponseEntity<?> doanhThuTheoNam(@RequestParam int nam) {
-        Double doanhThu = hoaDonRepo.tinhDoanhThuTheoNam(nam);
-        return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+        try {
+            Double doanhThu = hoaDonRepo.tinhDoanhThuTheoNam(nam);
+            return new ResponseEntity<>(doanhThu != null ? doanhThu : 0, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Năm không hợp lệ hoặc xảy ra lỗi khi xử lý!", HttpStatus.BAD_REQUEST);
+        }
     }
 
 

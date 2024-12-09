@@ -7,7 +7,6 @@ import com.example.demo.exception.MessageException;
 import com.example.demo.repository.*;
 import com.example.demo.service.HoaDonService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -162,31 +161,34 @@ public class ControllerBanHang {
 
     @PostMapping("/tao-don-hang-post")
     @ResponseBody
-    public void taoDonHang(@RequestBody DonHangDto donHangDto, HttpSession session){
+    public ResponseEntity<String> taoDonHang(@RequestBody DonHangDto donHangDto, HttpSession session) {
         TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("nhanVien");
 
-        // Kiểm tra null để tránh NullPointerException
-
-
-        // Lấy username từ đối tượng TaiKhoan
-        String username = taiKhoan.getTenDangNhap();
-        System.out.println("Username: " + username);
-
-        // Truy xuất lại đối tượng TaiKhoan từ repository nếu cần
-        TaiKhoan taiKhoanFromDb = taiKhoanRepository.findByTenDangNhap(username).orElse(null);
-        if (taiKhoanFromDb != null) {
-            System.out.println("ID tài khoản: " + taiKhoanFromDb.getId());
-        } else {
-            System.out.println("Không tìm thấy tài khoản!");
+        if (taiKhoan == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Không tìm thấy thông tin tài khoản!");
         }
+
+        // Kiểm tra trùng số điện thoại
+        if (hoaDonRepo.existsBySoDienThoai(donHangDto.getSoDienThoai())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Số điện thoại đã tồn tại, vui lòng kiểm tra lại!");
+        }
+
+        // Tiếp tục xử lý như cũ
+        String username = taiKhoan.getTenDangNhap();
+        TaiKhoan taiKhoanFromDb = taiKhoanRepository.findByTenDangNhap(username).orElse(null);
+        if (taiKhoanFromDb == null) {
+            throw new MessageException("Tài khoản không hợp lệ!");
+        }
+
         Float tongTien = 0F;
-        for(SpctDto d : donHangDto.getSpct()){
+        for (SpctDto d : donHangDto.getSpct()) {
             CTSP ctsp = ctsp_repository.findById(d.getIdCtsp()).get();
-            if(ctsp.getSoLuong() < d.getQuantity()){
-                throw new MessageException("id CTSP"+ctsp.getId()+" chỉ còn "+ctsp.getSoLuong());
+            if (ctsp.getSoLuong() < d.getQuantity()) {
+                throw new MessageException("id CTSP " + ctsp.getId() + " chỉ còn " + ctsp.getSoLuong());
             }
             tongTien += ctsp.getDonGia() * d.getQuantity();
         }
+
         HoaDon hoaDon = new HoaDon();
         hoaDon.setNgayLap(new Date(System.currentTimeMillis()));
         hoaDon.setTrangThaiThanhToan("Da thanh toan");
@@ -197,7 +199,7 @@ public class ControllerBanHang {
         hoaDon.setSoDienThoai(donHangDto.getSoDienThoai());
         hoaDonRepo.save(hoaDon);
 
-        for(SpctDto d : donHangDto.getSpct()){
+        for (SpctDto d : donHangDto.getSpct()) {
             CTSP ctsp = ctsp_repository.findById(d.getIdCtsp()).get();
             HDCT hdct = new HDCT();
             hdct.setHoaDon(hoaDon);
@@ -210,14 +212,15 @@ public class ControllerBanHang {
             hdctRepository.save(hdct);
         }
 
-        for(SpctDto d : donHangDto.getSpct()){
+        for (SpctDto d : donHangDto.getSpct()) {
             CTSP ctsp = ctsp_repository.findById(d.getIdCtsp()).get();
             ctsp.setSoLuong(ctsp.getSoLuong() - d.getQuantity());
             ctsp_repository.save(ctsp);
         }
 
-
+        return ResponseEntity.ok("Thành công!");
     }
+
 
 
 }

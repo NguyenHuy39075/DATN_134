@@ -27,9 +27,10 @@
                         </select>
 
                         <br><br>
-                        <button onclick="taoDonHang()" class="form-control btn btn-primary">Tạo đơn hàng</button>
+                        <button onclick="validateAndSubmit('add')" class="form-control btn btn-primary">Tạo đơn hàng</button>
                     </div>
                     <div class="col-sm-9">
+                        <h2 style="text-align: center;">Bán Hàng Tại Quầy</h2>
                         <table id="carttable" class="table">
                             <thead>
                                 <tr>
@@ -84,6 +85,57 @@
     }
 </script>
 <script th:inline="javascript">
+
+
+    let isValid = true;
+
+    document.getElementById("sdt").addEventListener("blur", function () {
+        const sdt = this.value.trim();
+        const sdtRegex = /^(\+84|0)\d{9}$/; // Định dạng cho số điện thoại Việt Nam
+
+        if (!sdtRegex.test(sdt)) {
+            // Hiển thị cảnh báo
+            alert("Số điện thoại không hợp lệ! Vui lòng nhập đúng định dạng (VD: 0123456789 hoặc +84123456789).");
+
+            // Gán lớp báo lỗi để thông báo người dùng cần sửa
+            this.classList.add("is-invalid");
+
+            // Đặt cờ isValid thành false
+            isValid = false;
+        } else {
+            // Xóa lớp báo lỗi nếu hợp lệ
+            this.classList.remove("is-invalid");
+            isValid = true;
+        }
+    });
+
+    // Kiểm tra tất cả trường trước khi thực hiện hành động
+    function validateAndSubmit(action) {
+        isValid = true; // Reset trạng thái
+        const sdt = document.getElementById("sdt").value.trim();
+        const sdtRegex = /^(\+84|0)\d{9}$/;
+
+        if (!sdtRegex.test(sdt)) {
+            alert("Vui lòng kiểm tra lại thông tin số điện thoại!");
+            isValid = false;
+            return;
+        }
+
+        if (isValid) {
+            if (action === 'add') {
+                taoDonHang();
+            } else if (action === 'update') {
+                capNhatSP(window.currentNVId);
+            }
+        }
+    }
+
+
+
+
+
+
+
     async function openChiTietModal(sanPhamId){
         const response = await fetch('/ban-hang/chi-tiet-san-pham?sanPhamId='+sanPhamId, {
         });
@@ -134,35 +186,39 @@
         loadCart();
     }
 
-    function loadCart(){
+    function loadCart() {
         var cart = window.localStorage.getItem("cart");
-        if(cart == null){
+        if (cart == null) {
             return;
         }
         cart = JSON.parse(cart);
         var main = "";
         var tongTien = 0;
-        for(var i=0; i<cart.length; i++){
-            tongTien = Number(tongTien) + Number(cart[i].donGia * cart[i].quantity)
+        for (var i = 0; i < cart.length; i++) {
+            tongTien = Number(tongTien) + Number(cart[i].donGia * cart[i].quantity);
             main +=
                 `<tr>
-                    <td>${cart[i].id}</td>
-                    <td>${cart[i].sanPham.tenSanPham}</td>
-                    <td>${cart[i].mauSac.tenMau}</td>
-                    <td>${cart[i].size.tenSize}</td>
-                    <td>${formatmoney(cart[i].donGia)}</td>
-                    <td class="d-flex">
-                        <button onclick="updateQuantity(${cart[i].id}, -1)">-</button>
-                        <input readonly value="${cart[i].quantity}" style="width: 30px">
-                        <button onclick="updateQuantity(${cart[i].id}, 1)">+</button>
-                    </td>
-                     <td>${formatmoney(cart[i].donGia * cart[i].quantity)}</td>
-                    <td><button onclick="removeCart(${cart[i].id})" class="delete-btn"><i class="fa fa-trash"></i></button></td>
-                </tr>`
+                <td>${cart[i].id}</td>
+                <td>${cart[i].sanPham.tenSanPham}</td>
+                <td>${cart[i].mauSac.tenMau}</td>
+                <td>${cart[i].size.tenSize}</td>
+                <td>${formatmoney(cart[i].donGia)}</td>
+                <td class="d-flex">
+                    <button onclick="updateQuantity(${cart[i].id}, -1)">-</button>
+                    <input readonly value="${cart[i].quantity}" style="width: 30px">
+                    <button onclick="updateQuantity(${cart[i].id}, 1)">+</button>
+                </td>
+                <td>${formatmoney(cart[i].donGia * cart[i].quantity)}</td>
+                <td><button onclick="removeCart(${cart[i].id})" class="delete-btn"><i class="fa fa-trash"></i></button></td>
+            </tr>`;
         }
-        main += `<tr><td colspan="8">Tổng tiền: ${formatmoney(tongTien)}</td></tr>`
-        document.getElementById("listcart").innerHTML = main
+        main += `
+        <tr>
+            <td colspan="8" style="text-align: left; font-weight: bold; color: red;">Tổng tiền: ${formatmoney(tongTien)}</td>
+        </tr>`;
+        document.getElementById("listcart").innerHTML = main;
     }
+
 
 
     async function updateQuantity(id, sl){
@@ -201,30 +257,35 @@
         loadCart();
     }
 
-    async function taoDonHang(){
+    async function taoDonHang() {
         var con = window.confirm("Xác nhận đặt hàng");
-        if(con == false){
+        if (con == false) {
             return;
         }
+
         var cart = window.localStorage.getItem("cart");
-        if(cart == null){
-            toastr.error("Chưa có sản phẩm nào trong giỏ hàng!"); return;
+        if (cart == null) {
+            toastr.error("Chưa có sản phẩm nào trong giỏ hàng!");
+            return;
         }
+
         var arr = [];
         cart = JSON.parse(cart);
-        for(var i=0; i<cart.length; i++){
+        for (var i = 0; i < cart.length; i++) {
             var obj = {
-                "idCtsp":cart[i].id,
-                "quantity":cart[i].quantity,
-            }
-            arr.push(obj)
+                "idCtsp": cart[i].id,
+                "quantity": cart[i].quantity,
+            };
+            arr.push(obj);
         }
+
         var payload = {
-            "spct":arr,
-            "hoTen":document.getElementById("hoten").value,
-            "soDienThoai":document.getElementById("sdt").value,
-            "hinhThucThanhToan":document.getElementById("hinhthuctt").value,
-        }
+            "spct": arr,
+            "hoTen": document.getElementById("hoten").value,
+            "soDienThoai": document.getElementById("sdt").value,
+            "hinhThucThanhToan": document.getElementById("hinhthuctt").value,
+        };
+
         const response = await fetch("/ban-hang/tao-don-hang-post", {
             method: 'POST',
             headers: new Headers({
@@ -232,16 +293,23 @@
             }),
             body: JSON.stringify(payload)
         });
-        if (response.status < 300) {
+
+        if (response.status === 200) {
             toastr.success("Thành công!");
             await new Promise(resolve => setTimeout(resolve, 1500));
             window.location.reload();
-        }
-        if (response.status == exceptionCode) {
-            var result = await response.json()
-            toastr.warning(result.defaultMessage);
+        } else if (response.status === 400) {
+            const result = await response.text();
+            toastr.warning(result); // Hiển thị cảnh báo từ server
+        } else if (response.status === 401) {
+            toastr.error("Vui lòng đăng nhập lại!");
+        } else {
+            toastr.error("Có lỗi xảy ra, vui lòng thử lại sau!");
         }
     }
+
+
+
 
     function formatmoney(money) {
         const VND = new Intl.NumberFormat('vi-VN', {

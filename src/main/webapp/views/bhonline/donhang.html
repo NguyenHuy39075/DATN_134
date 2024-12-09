@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:if="${session.nhanVien != null}">
+    <head>
+        <title>Danh sách đơn hàng</title>
+        <meta charset="utf-8">
+        <head th:replace="common/libAdmin :: libheaderadmin"></head>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body>
+    <div>
+        <div th:replace="common/navbarAdmin :: headerAdmin"></div>
+        <div class="d-flex">
+            <div th:replace="common/navbarAdmin :: sidenavAdmin"></div>
+            <div class="pt-3" style="width: calc(100% - 250px);">
+                <div class="container">
+                    <h2 style="text-align: center;">Bán Hàng Online</h2>
+
+                    <table id="example" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày</th>
+                            <th>Trạng thái</th>
+                            <th>Hình thức</th>
+                            <th>Tổng tiền</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="d : ${donHang}">
+                            <td th:text="${d.id}"></td>
+                            <td th:text="${d.khachHang.tenKhachHang}"></td>
+                            <td th:text="${d.khachHang.sdt}"></td>
+                            <td th:text="${d.khachHang.diaChi}"></td>
+                            <td th:text="${d.ngayLap}">
+                            <td th:text="${d.trangThaiThanhToan}"></td>
+                            <td th:text="${d.hinhThucThanhToan}"></td>
+                            <td><span th:inline="text">[[${#numbers.formatDecimal(d.tongTien, 0, 'COMMA', 0, 'POINT')}]]</span></td>
+
+                            <!-- Cột nút thao tác -->
+                            <td>
+                                <select class="form-select form-select-sm update-status" th:data-id="${d.id}" th:value="${d.trangThaiThanhToan}">
+                                    <option value="Cho giao hang" th:selected="${d.trangThaiThanhToan == 'Cho giao hang'}">Chờ giao hàng</option>
+                                    <option value="Dang giao hang" th:selected="${d.trangThaiThanhToan == 'Dang giao hang'}">Đang giao hàng</option>
+                                    <option value="Giao hang thanh cong" th:selected="${d.trangThaiThanhToan == 'Giao hang thanh cong'}">Giao thành công </option>
+                                    <option value="Da huy" th:selected="${d.trangThaiThanhToan == 'Da huy'}">Đã hủy</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <a href="/ban-hang-online/da-thanh-toan" class="btn btn-primary">Hóa đơn đã thanh toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    <script>
+        $('#example').DataTable();
+    </script>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const selects = document.querySelectorAll(".update-status");
+
+            selects.forEach(select => {
+                select.addEventListener("change", function () {
+                    const id = this.getAttribute("data-id");
+                    const newStatus = this.value;
+
+                    fetch(`/ban-hang-online/hoa-don/${id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ trangThaiThanhToan: newStatus })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Cập nhật thất bại!");
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            alert("Cập nhật trạng thái thành công!");
+                            // Tải lại trang sau khi cập nhật
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("Cập nhật trạng thái thất bại!");
+                        });
+                });
+            });
+        });
+
+    </script>
+
+
+
+
+    <!-- Nội dung dành cho người dùng đã đăng nhập -->
+</div>
+
+<div th:if="${session.nhanVien == null}">
+    <p>Vui lòng <a th:href="@{/dang-nhap/login}"> đăng nhập</a>.</p>
+</div>
+
+</html>

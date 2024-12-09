@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trang Chủ Sản Phẩm</title>
+    <meta charset="utf-8">
+    <head th:replace="common/libAdmin :: libheaderadmin"></head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div>
+    <div class="container mt-5">
+        <h1 class="text-center">Danh Sách Sản Phẩm</h1>
+        <br>
+        <button class="btn btn-success" onclick="viewCart()">Xem Giỏ Hàng</button>
+        <br><br>
+        <div class="row" id="product-list">
+            <!-- Danh sách sản phẩm sẽ được thêm qua JavaScript -->
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal Chọn Sản Phẩm Chi Tiết -->
+<div class="modal fade" id="hoadonchitiet" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chọn Sản Phẩm Chi Tiết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Mã CTSP</th>
+                        <th>Màu Sắc</th>
+                        <th>Kích Thước</th>
+                        <th>Giá Tiền</th>
+                        <th>Số Lượng</th>
+                        <th>Chọn</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listctsp">
+                    <!-- Chi tiết sản phẩm sẽ được thêm vào đây qua JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Load danh sách sản phẩm
+    async function loadProducts() {
+        const response = await fetch('/ban-hang-online/ctsp'); // Đảm bảo API trả dữ liệu đúng format
+        const products = await response.json();
+
+        const productList = document.getElementById('product-list');
+        let html = '';
+
+        products.forEach(product => {
+            html += `
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="${product.anhSanPham}" class="card-img-top" alt="${product.sanPham.tenSanPham}">
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate" title="${product.sanPham.tenSanPham}">${product.sanPham.tenSanPham}</h5>
+                        <h4 class="card-title text-truncate" title="${product.size.tenSize}">${product.size.tenSize}</h4>
+
+                        <p class="card-text text-danger">Giá: ${formatMoney(product.donGia)}</p>
+
+                        <button class="btn btn-primary" onclick="addToCart(${product.id}, '${product.sanPham.tenSanPham}', ${product.donGia}, '${product.anhSanPham}', '${product.size.tenSize}')">Chọn</button>
+
+            </div>
+                </div>
+            </div>`;
+        });
+
+        productList.innerHTML = html;
+    }
+
+
+
+    function viewCart() {
+        window.location.href = '/ban-hang-online/cart';
+    }
+    // Định dạng tiền tệ
+    function formatMoney(money) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(money);
+    }
+
+
+
+
+    // Tải danh sách sản phẩm khi trang tải
+    window.onload = function () {
+        loadProducts();
+    };
+
+    // Lưu giỏ hàng vào LocalStorage
+    function saveCartToLocalStorage(cart) {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Lấy giỏ hàng từ LocalStorage
+    function getCartFromLocalStorage() {
+        const cart = localStorage.getItem('cart');
+        return cart ? JSON.parse(cart) : [];
+    }
+
+    // Thêm sản phẩm vào giỏ hàng
+    function addToCart(id, name, price, image, size) {
+        // Lấy giỏ hàng hiện tại
+        const cart = getCartFromLocalStorage();
+
+        // Kiểm tra nếu sản phẩm đã có trong giỏ
+        const existingProduct = cart.find(item => item.id === id && item.size === size);
+        if (existingProduct) {
+            // Tăng số lượng nếu sản phẩm đã có
+            existingProduct.quantity += 1;
+        } else {
+            // Thêm sản phẩm mới
+            cart.push({
+                id,
+                name,
+                size,
+                price,
+                image,
+                quantity: 1
+            });
+        }
+
+        // Lưu lại giỏ hàng
+        saveCartToLocalStorage(cart);
+
+        // Hiển thị thông báo
+        alert(`Đã thêm ${name} (Size: ${size}) vào giỏ hàng!`);
+    }
+
+
+    // Kiểm tra dữ liệu giỏ hàng trong console (debugging)
+    console.log(getCartFromLocalStorage());
+
+
+</script>
+
+</body>
+</html>
