@@ -118,7 +118,7 @@ public class ControllerOnline {
     @GetMapping("ban-hang-online/don-hang")
     public String xac(Model model) {
         // Danh sách trạng thái cần lọc
-        List<String> trangThaiList = Arrays.asList("Cho giao hang", "Dang giao hang", "Da Huy");
+        List<String> trangThaiList = Arrays.asList("Cho giao hang", "Dang giao hang");
 
         // Lấy danh sách hóa đơn theo trạng thái
         List<HoaDon> ds = this.hoaDonrepo.findByTrangThaiThanhToanIn(trangThaiList);
@@ -133,6 +133,12 @@ public class ControllerOnline {
         List<HoaDon> dtt = this.hoaDonrepo.findByTrangThaiThanhToan("Giao hang thanh cong");
         model.addAttribute("dtt", dtt);
         return "bhonline/datt";
+    }
+    @GetMapping("ban-hang-online/da-huy")
+    public String dhhhh(Model model){
+        List<HoaDon> dtt = this.hoaDonrepo.findByTrangThaiThanhToan("Da huy");
+        model.addAttribute("dhh", dtt);
+        return "bhonline/dhh";
     }
 
 
