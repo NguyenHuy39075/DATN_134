@@ -93,7 +93,11 @@
         const sdt = this.value.trim();
         const sdtRegex = /^(\+84|0)\d{9}$/; // Định dạng cho số điện thoại Việt Nam
 
-        if (!sdtRegex.test(sdt)) {
+        if (sdt === "") {
+            // Nếu để trống thì xóa lớp báo lỗi (nếu có)
+            this.classList.remove("is-invalid");
+            isValid = true; // Không cần kiểm tra thêm
+        } else if (!sdtRegex.test(sdt)) {
             // Hiển thị cảnh báo
             alert("Số điện thoại không hợp lệ! Vui lòng nhập đúng định dạng (VD: 0123456789 hoặc +84123456789).");
 
@@ -115,7 +119,7 @@
         const sdt = document.getElementById("sdt").value.trim();
         const sdtRegex = /^(\+84|0)\d{9}$/;
 
-        if (!sdtRegex.test(sdt)) {
+        if (sdt !== "" && !sdtRegex.test(sdt)) {
             alert("Vui lòng kiểm tra lại thông tin số điện thoại!");
             isValid = false;
             return;
@@ -129,6 +133,7 @@
             }
         }
     }
+
 
 
 

@@ -168,9 +168,11 @@ public class ControllerBanHang {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Không tìm thấy thông tin tài khoản!");
         }
 
-        // Kiểm tra trùng số điện thoại
-        if (hoaDonRepo.existsBySoDienThoai(donHangDto.getSoDienThoai())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Số điện thoại đã tồn tại, vui lòng kiểm tra lại!");
+        if (donHangDto.getSoDienThoai() != null && !donHangDto.getSoDienThoai().trim().isEmpty()) {
+            // Kiểm tra trùng số điện thoại nếu không để trống
+            if (hoaDonRepo.existsBySoDienThoai(donHangDto.getSoDienThoai())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Số điện thoại đã tồn tại, vui lòng kiểm tra lại!");
+            }
         }
 
         // Tiếp tục xử lý như cũ
