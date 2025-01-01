@@ -11,6 +11,9 @@
     <div class="container mt-5">
         <h1 class="text-center">Danh Sách Sản Phẩm</h1>
         <br>
+        <div class="d-flex justify-content-center mb-4">
+            <input type="text" id="search-bar" class="form-control w-50" placeholder="Tìm kiếm sản phẩm..." oninput="filterProducts()">
+        </div>
         <button class="btn btn-success" onclick="viewCart()">Xem Giỏ Hàng</button>
         <br><br>
         <div class="row" id="product-list">
@@ -50,34 +53,48 @@
 </div>
 
 <script>
+    let allProducts = []; // Biến lưu toàn bộ danh sách sản phẩm
+
     // Load danh sách sản phẩm
     async function loadProducts() {
-        const response = await fetch('/ban-hang-online/ctsp'); // Đảm bảo API trả dữ liệu đúng format
-        const products = await response.json();
+        const response = await fetch('/ban-hang-online/ctsp');
+        allProducts = await response.json(); // Lưu toàn bộ sản phẩm vào biến toàn cục
 
+        renderProducts(allProducts); // Hiển thị toàn bộ sản phẩm
+    }
+
+    // Hiển thị danh sách sản phẩm
+    function renderProducts(products) {
         const productList = document.getElementById('product-list');
         let html = '';
 
         products.forEach(product => {
             html += `
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="${product.anhSanPham}" class="card-img-top" alt="${product.sanPham.tenSanPham}">
-                    <div class="card-body">
-                        <h5 class="card-title text-truncate" title="${product.sanPham.tenSanPham}">${product.sanPham.tenSanPham}</h5>
-                        <h4 class="card-title text-truncate" title="${product.size.tenSize}">${product.size.tenSize}</h4>
-
-                        <p class="card-text text-danger">Giá: ${formatMoney(product.donGia)}</p>
-
-                        <button class="btn btn-primary" onclick="addToCart(${product.id}, '${product.sanPham.tenSanPham}', ${product.donGia}, '${product.anhSanPham}', '${product.size.tenSize}')">Chọn</button>
-
-            </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="${product.anhSanPham}" class="card-img-top" alt="${product.sanPham.tenSanPham}">
+                <div class="card-body">
+                    <h5 class="card-title text-truncate" title="${product.sanPham.tenSanPham}">${product.sanPham.tenSanPham}</h5>
+                    <h4 class="card-title text-truncate" title="${product.size.tenSize}">${product.size.tenSize}</h4>
+                    <p class="card-text text-danger">Giá: ${formatMoney(product.donGia)}</p>
+                    <button class="btn btn-primary" onclick="addToCart(${product.id}, '${product.sanPham.tenSanPham}', ${product.donGia}, '${product.anhSanPham}', '${product.size.tenSize}')">Chọn</button>
                 </div>
-            </div>`;
+            </div>
+        </div>`;
         });
 
         productList.innerHTML = html;
     }
+
+    // Lọc sản phẩm theo từ khóa
+    function filterProducts() {
+        const keyword = document.getElementById('search-bar').value.toLowerCase();
+        const filteredProducts = allProducts.filter(product =>
+            product.sanPham.tenSanPham.toLowerCase().includes(keyword)
+        );
+        renderProducts(filteredProducts); // Hiển thị danh sách sản phẩm đã lọc
+    }
+
 
 
 
