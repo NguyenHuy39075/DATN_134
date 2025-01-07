@@ -44,11 +44,14 @@
 
                             <!-- Cột nút thao tác -->
                             <td>
-                                <select class="form-select form-select-sm update-status" th:data-id="${d.id}" th:value="${d.trangThaiThanhToan}">
-                                    <option value="Cho giao hang" th:selected="${d.trangThaiThanhToan == 'Cho giao hang'}">Chờ giao hàng</option>
-                                    <option value="Dang giao hang" th:selected="${d.trangThaiThanhToan == 'Dang giao hang'}">Đang giao hàng</option>
-                                    <option value="Giao hang thanh cong" th:selected="${d.trangThaiThanhToan == 'Giao hang thanh cong'}">Giao thành công </option>
-                                    <option value="Da huy" th:selected="${d.trangThaiThanhToan == 'Da huy'}">Đã hủy</option>
+                                <select class="form-select form-select-sm update-status"
+                                        th:data-id="${d.id}"
+                                        th:data-current-status="${d.trangThaiThanhToan}"
+                                        th:value="${d.trangThaiThanhToan}">
+                                    <option value="Cho giao hang">Chờ giao hàng</option>
+                                    <option value="Dang giao hang">Đang giao hàng</option>
+                                    <option value="Giao hang thanh cong">Giao thành công</option>
+                                    <option value="Da huy">Đã hủy</option>
                                 </select>
                             </td>
                             <td>
@@ -200,11 +203,28 @@
         document.addEventListener("DOMContentLoaded", function () {
             const selects = document.querySelectorAll(".update-status");
 
+            // Định nghĩa trình tự hợp lệ của trạng thái
+            const validTransitions = {
+                "Cho giao hang": ["Dang giao hang"],
+                "Dang giao hang": ["Giao hang thanh cong", "Da huy"],
+                "Giao hang thanh cong": [],
+                "Da huy": []
+            };
+
             selects.forEach(select => {
                 select.addEventListener("change", function () {
                     const id = this.getAttribute("data-id");
+                    const oldStatus = this.getAttribute("data-current-status"); // Lưu trạng thái hiện tại
                     const newStatus = this.value;
 
+                    // Kiểm tra nếu trạng thái mới không hợp lệ
+                    if (!validTransitions[oldStatus].includes(newStatus)) {
+                        alert(`Không thể chuyển từ trạng thái "${oldStatus}" sang "${newStatus}". Vui lòng chuyển đúng trình tự.`);
+                        this.value = oldStatus; // Reset về trạng thái cũ
+                        return;
+                    }
+
+                    // Cập nhật trạng thái qua API
                     fetch(`/ban-hang-online/hoa-don/${id}`, {
                         method: "PUT",
                         headers: {
@@ -220,16 +240,22 @@
                         })
                         .then(data => {
                             alert("Cập nhật trạng thái thành công!");
-                            // Tải lại trang sau khi cập nhật
+                            this.setAttribute("data-current-status", newStatus); // Cập nhật trạng thái hiện tại
+
+                            // Reload lại trang sau khi cập nhật thành công
                             window.location.reload();
                         })
                         .catch(error => {
                             console.error("Error:", error);
                             alert("Cập nhật trạng thái thất bại!");
+                            this.value = oldStatus; // Reset về trạng thái cũ
                         });
                 });
             });
         });
+
+
+
 
     </script>
 
