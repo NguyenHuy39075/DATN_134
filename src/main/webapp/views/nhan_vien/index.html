@@ -62,8 +62,12 @@
                         <input id="matKhau" class="form-control" required>
                         <span id="errorMatKhau" class="text-danger"></span>
 
-                        <label class="lb-form">Chức vụ</label>
-                        <input id="chucVu" class="form-control" required>
+                        <label class="lb-form">Chức vụ </label>
+                        <select id="chucVu" class="form-control">
+                            <option value="">Chọn chức vụ</option>
+                            <option value="NV">Nhân viên</option>
+                            <option value="QL">Quản lý</option>
+                        </select>
                         <span id="errorChucVu" class="text-danger"></span>
 
                         <label class="lb-form">Email</label>
@@ -190,10 +194,7 @@
 
                 // Validate chucVu
                 if (chucVu === "") {
-                    document.getElementById("errorChucVu").innerText = "Chức vụ không được để trống.";
-                    isValid = false;
-                } else if (!isNaN(chucVu) && parseInt(chucVu, 10) < 0) {
-                    document.getElementById("errorChucVu").innerText = "Chức vụ không được là số âm.";
+                    document.getElementById("errorChucVu").innerText = "Vui lòng chọn chức vụ.";
                     isValid = false;
                 }
 
