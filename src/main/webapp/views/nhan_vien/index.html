@@ -71,8 +71,8 @@
                         <span id="errorEmail" class="text-danger"></span>
 
                         <label class="lb-form">Số điện thoại</label>
-                        <input id="sdt" class="form-control" required>
-                        <span id="errorSDT" class="text-danger"></span>
+                        <input id="soDienThoai" class="form-control" required>
+                        <span id="errorsoDienThoai" class="text-danger"></span>
 
                         <label class="lb-form">Ngày tạo</label>
                         <input id="ngayTao" class="form-control" type="date" required>
@@ -110,7 +110,7 @@
                 document.getElementById("errorMatKhau").innerText = "";
                 document.getElementById("errorChucVu").innerText = "";
                 document.getElementById("errorEmail").innerText = "";
-                document.getElementById("errorSDT").innerText = "";
+                document.getElementById("errorsoDienThoai").innerText = "";
                 document.getElementById("errorNgayTao").innerText = "";
                 document.getElementById("errorTrangThai").innerText = "";
 
@@ -119,7 +119,7 @@
                 const matKhau = document.getElementById("matKhau").value.trim();
                 const chucVu = document.getElementById("chucVu").value.trim();
                 const email = document.getElementById("email").value.trim();
-                const sdt = document.getElementById("sdt").value.trim();
+                const soDienThoai = document.getElementById("soDienThoai").value.trim();
                 const ngayTao = document.getElementById("ngayTao").value.trim();
                 const trangThai = document.getElementById("trangThai").value.trim();
 
@@ -129,34 +129,55 @@
                 if (tenDangNHap === "") {
                     document.getElementById("errorTenDangNhap").innerText = "Tên đăng nhập không được để trống.";
                     isValid = false;
+                } else if (!isNaN(tenDangNHap) && parseInt(tenDangNHap, 10) < 0) {
+                    document.getElementById("errorTenDangNhap").innerText = "Tên đăng nhập không được là số âm.";
+                    isValid = false;
                 }
 
                 // Validate matKhau
                 if (matKhau === "") {
                     document.getElementById("errorMatKhau").innerText = "Mật khẩu không được để trống.";
                     isValid = false;
+                } else if (!isNaN(matKhau) && parseInt(matKhau, 10) < 0) {
+                    document.getElementById("errorMatKhau").innerText = "Mật khẩu không được là số âm.";
+                    isValid = false;
                 }
 
                 // Validate ngayTao (phải là ngày hợp lệ)
+                // Validate ngayTao (phải là ngày hợp lệ và không là ngày trong tương lai)
                 if (ngayTao === "") {
                     document.getElementById("errorNgayTao").innerText = "Ngày tạo không được để trống.";
                     isValid = false;
                 } else if (isNaN(Date.parse(ngayTao))) {
                     document.getElementById("errorNgayTao").innerText = "Ngày tạo không hợp lệ.";
                     isValid = false;
+                } else {
+                    const today = new Date().toISOString().split("T")[0]; // Lấy ngày hiện tại theo định dạng YYYY-MM-DD
+                    if (ngayTao > today) {
+                        document.getElementById("errorNgayTao").innerText = "Ngày tạo không được là ngày trong tương lai.";
+                        isValid = false;
+                    }
                 }
 
-                // Validate sdt (chỉ chứa số và không âm)
-                if (sdt === "") {
-                    document.getElementById("errorSDT").innerText = "Số điện thoại không được để trống.";
+
+                // Validate soDienThoai
+                if (soDienThoai === "") {
+                    document.getElementById("errorsoDienThoai").innerText = "Số điện thoại không được để trống.";
                     isValid = false;
-                } else if (!/^\d+$/.test(sdt)) {
-                    document.getElementById("errorSDT").innerText = "Số điện thoại chỉ được chứa chữ số.";
+                } else if (!/^\d+$/.test(soDienThoai)) {
+                    document.getElementById("errorsoDienThoai").innerText = "Số điện thoại chỉ được chứa chữ số.";
                     isValid = false;
-                } else if (parseInt(sdt, 10) < 0) {
-                    document.getElementById("errorSDT").innerText = "Số điện thoại không được là số âm.";
+                } else if (parseInt(soDienThoai, 10) <= 0) {
+                    document.getElementById("errorsoDienThoai").innerText = "Số điện thoại phải là số dương.";
                     isValid = false;
+                } else if (soDienThoai.length < 10 || soDienThoai.length > 11) {
+                    document.getElementById("errorsoDienThoai").innerText = "Số điện thoại phải có 10-11 chữ số.";
+                    isValid = false;
+                } else {
+                    document.getElementById("errorsoDienThoai").innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
                 }
+
+
 
                 // Validate email (dùng regex)
                 if (email === "") {
@@ -170,6 +191,9 @@
                 // Validate chucVu
                 if (chucVu === "") {
                     document.getElementById("errorChucVu").innerText = "Chức vụ không được để trống.";
+                    isValid = false;
+                } else if (!isNaN(chucVu) && parseInt(chucVu, 10) < 0) {
+                    document.getElementById("errorChucVu").innerText = "Chức vụ không được là số âm.";
                     isValid = false;
                 }
 
@@ -215,7 +239,7 @@
                     document.getElementById("matKhau").value = taiKhoan.matKhau;
                     document.getElementById("chucVu").value = taiKhoan.chucVu;
                     document.getElementById("email").value = taiKhoan.email;
-                    document.getElementById("sdt").value = taiKhoan.sdt;
+                    document.getElementById("soDienThoai").value = taiKhoan.sdt;
                     document.getElementById("ngayTao").value = taiKhoan.ngayTao;
                     document.getElementById("trangThai").value = taiKhoan.trangThai;
 
@@ -239,7 +263,7 @@
                     "tenDangNhap": document.getElementById("tenDangNhap").value,
                     "matKhau": document.getElementById("matKhau").value,
                     "email": document.getElementById("email").value,
-                    "sdt": document.getElementById("sdt").value,
+                    "sdt": document.getElementById("soDienThoai").value,
                     "ngayTao": document.getElementById("ngayTao").value,
                     "chucVu": document.getElementById("chucVu").value,
                     "trangThai": document.getElementById("trangThai").value,
@@ -260,7 +284,8 @@
                     // Chuyển hướng về trang hiển thị danh sách sản phẩm
                     window.location.href = "/nhan-vien/hien-thi";
                 } else {
-                    alert("Đã có lỗi xảy ra khi thêm nhân viên.");
+                    alert("Đã có lỗi xảy ra khi thêm nhân viên." +
+                        "Dữ liệu nhân viên không được trùng.");
                 }
             }
 
@@ -275,7 +300,7 @@
                     "tenDangNhap": document.getElementById("tenDangNhap").value,
                     "matKhau": document.getElementById("matKhau").value,
                     "email": document.getElementById("email").value,
-                    "sdt": document.getElementById("sdt").value,
+                    "sdt": document.getElementById("soDienThoai").value,
                     "ngayTao": document.getElementById("ngayTao").value,
                     "chucVu": document.getElementById("chucVu").value,
                     "trangThai": document.getElementById("trangThai").value,

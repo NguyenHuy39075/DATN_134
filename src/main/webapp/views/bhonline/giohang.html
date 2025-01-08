@@ -164,22 +164,31 @@
             return;
         }
 
-        // Kiểm tra các trường không được để trống
+        // Kiểm tra Họ Tên
         if (!customerName) {
             alert('Vui lòng nhập họ tên.');
             return;
+        } else if (/[-]/.test(customerName)) { // Kiểm tra có chứa số âm hoặc dấu trừ
+            alert('Họ tên không được chứa dấu trừ hoặc số âm.');
+            return;
         }
 
+        // Kiểm tra Số Điện Thoại
         if (!customerPhone || !/^\d{10}$/.test(customerPhone)) {
             alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số).');
             return;
         }
 
+        // Kiểm tra Địa Chỉ
         if (!customerAddress) {
             alert('Vui lòng nhập địa chỉ.');
             return;
+        } else if (/[-]/.test(customerAddress)) { // Kiểm tra có chứa số âm hoặc dấu trừ
+            alert('Địa chỉ không được chứa dấu trừ hoặc số âm.');
+            return;
         }
 
+        // Kiểm tra Hình Thức Thanh Toán
         if (!paymentMethod) {
             alert('Vui lòng chọn hình thức thanh toán.');
             return;
@@ -213,7 +222,7 @@
                 if (response.ok) {
                     return response.json(); // Parse JSON response nếu thành công
                 } else {
-                    throw new Error('Lỗi khi thêm hóa đơn');
+                    throw new Error('Lỗi khi đặt hàng, lưu ý số lượng');
                 }
             })
             .then(data => {
@@ -226,6 +235,7 @@
                 alert('Đã xảy ra lỗi: ' + error.message);
             });
     }
+
 
 
 

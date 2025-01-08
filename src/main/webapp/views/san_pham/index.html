@@ -149,10 +149,22 @@
         }
 
         // Validate ngày nhập
+
         if (ngayNhap === "") {
             document.getElementById("errorNgayNhap").innerText = "Ngày nhập không được để trống.";
             isValid = false;
+        } else if (isNaN(Date.parse(ngayNhap))) {
+            document.getElementById("errorNgayNhap").innerText = "Ngày nhập không hợp lệ.";
+            isValid = false;
+        } else {
+            const today = new Date().toISOString().split("T")[0]; // Lấy ngày hiện tại theo định dạng YYYY-MM-DD
+            if (ngayNhap > today) {
+                document.getElementById("errorNgayNhap").innerText = "Ngày nhập không được là ngày trong tương lai.";
+                isValid = false;
+            }
         }
+
+
 
         // Validate danh mục
         if (danhMuc === "") {

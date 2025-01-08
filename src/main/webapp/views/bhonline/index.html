@@ -74,9 +74,12 @@
             <div class="card h-100">
                 <img src="${product.anhSanPham}" class="card-img-top" alt="${product.sanPham.tenSanPham}">
                 <div class="card-body">
-                    <h5 class="card-title text-truncate" title="${product.sanPham.tenSanPham}">${product.sanPham.tenSanPham}</h5>
-                    <h4 class="card-title text-truncate" title="${product.size.tenSize}">${product.size.tenSize}</h4>
-                    <p class="card-text text-danger">Giá: ${formatMoney(product.donGia)}</p>
+                    <h4 class="card-title text-truncate" title="${product.sanPham.tenSanPham}">${product.sanPham.tenSanPham}</h4>
+                    <h5 class="card-title text-truncate" title="${product.size.tenSize}">Size: [${product.size.tenSize}]</h5>
+                    <h5 class="card-title text-truncate" title="${product.soLuong}">Số lượng: [${product.soLuong}]</h5>
+
+                    <h5><p class="card-text text-danger">Giá: ${formatMoney(product.donGia)}</p></h5>
+
                     <button class="btn btn-primary" onclick="addToCart(${product.id}, '${product.sanPham.tenSanPham}', ${product.donGia}, '${product.anhSanPham}', '${product.size.tenSize}')">Chọn</button>
                 </div>
             </div>

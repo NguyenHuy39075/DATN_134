@@ -4,6 +4,7 @@ import com.example.demo.dto.DonHangDto;
 import com.example.demo.dto.HoaDonRequest;
 import com.example.demo.dto.SpctDto;
 import com.example.demo.entity.*;
+import com.example.demo.exception.MessageException;
 import com.example.demo.repository.CTSP_Repository;
 import com.example.demo.repository.HDCT_Repository;
 import com.example.demo.repository.HDfin;
@@ -56,6 +57,15 @@ public class ControllerOnline {
 
             if (taiKhoan == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Không tìm thấy thông tin tài khoản!");
+            }
+
+            Float tongTien = 0F;
+            for (SpctDto d : request.getSpct()) {
+                CTSP ctsp = ctsp_repository.findById(d.getIdCtsp()).get();
+                if (ctsp.getSoLuong() < d.getQuantity()) {
+                    throw new MessageException("id CTSP " + ctsp.getId() + " chỉ còn " + ctsp.getSoLuong());
+                }
+                tongTien += ctsp.getDonGia() * d.getQuantity();
             }
 
             // Tạo đối tượng khách hàng
