@@ -18,6 +18,7 @@
                     <table id="example" class="table table-bordered">
                         <thead>
                         <tr>
+                            <th>Thứ tự</th>
                             <th>ID</th>
                             <th>Tên khách hàng</th>
                             <th>Số điện thoại</th>
@@ -30,7 +31,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="d : ${dtt}">
+                        <tr th:each="d , iterStat : ${dtt}">
+                            <td th:text="${iterStat.index + 1}"></td>
                             <td th:text="${d.id}"></td>
                             <td th:text="${d.khachHang.tenKhachHang}"></td>
                             <td th:text="${d.khachHang.sdt}"></td>

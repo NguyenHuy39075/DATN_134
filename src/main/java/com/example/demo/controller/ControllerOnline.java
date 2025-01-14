@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class ControllerOnline {
@@ -138,18 +139,62 @@ public class ControllerOnline {
 
         return "bhonline/donhang";
     }
+//    @GetMapping("ban-hang-online/da-thanh-toan")
+//    public String dttt(Model model){
+//        List<HoaDon> dtt = this.hoaDonrepo.findByTrangThaiThanhToan("Giao hang thanh cong");
+//        model.addAttribute("dtt", dtt);
+//        return "bhonline/datt";
+//    }
     @GetMapping("ban-hang-online/da-thanh-toan")
-    public String dttt(Model model){
-        List<HoaDon> dtt = this.hoaDonrepo.findByTrangThaiThanhToan("Giao hang thanh cong");
-        model.addAttribute("dtt", dtt);
+    public String viewListDonHangdtt(Model model, @RequestParam(required = false) String trangThai) {
+        System.out.println("TrangThai nhận được: " + trangThai); // Debug giá trị
+        List<HoaDon> hoaDonList;
+
+        if ("Giao hang thanh cong".equalsIgnoreCase(trangThai != null ? trangThai.trim() : "")) {
+            hoaDonList = hoaDonrepo.findByTrangThaiThanhToanOrderByIdDesc("Giao hang thanh cong");
+        } else {
+            hoaDonList = hoaDonrepo.findAllByOrderByIdDesc();
+        }
+
+        // Xác minh danh sách trả về chỉ chứa trạng thái mong muốn
+        hoaDonList = hoaDonList.stream()
+                .filter(hd -> "Giao hang thanh cong".equalsIgnoreCase(hd.getTrangThaiThanhToan()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("dtt", hoaDonList);
         return "bhonline/datt";
     }
+
+
+//    @GetMapping("ban-hang-online/da-huy")
+//    public String dhhhh(Model model){
+//        List<HoaDon> dtt = this.hoaDonrepo.findByTrangThaiThanhToan("Da huy");
+//        model.addAttribute("dhh", dtt);
+//        return "bhonline/dhh";
+//    }
     @GetMapping("ban-hang-online/da-huy")
-    public String dhhhh(Model model){
-        List<HoaDon> dtt = this.hoaDonrepo.findByTrangThaiThanhToan("Da huy");
-        model.addAttribute("dhh", dtt);
+    public String viewListDonHangdh(Model model, @RequestParam(required = false) String trangThai) {
+        System.out.println("TrangThai nhận được: " + trangThai); // Debug giá trị
+        List<HoaDon> hoaDonList;
+
+        if ("Da huy".equalsIgnoreCase(trangThai != null ? trangThai.trim() : "")) {
+            hoaDonList = hoaDonrepo.findByTrangThaiThanhToanOrderByIdDesc("Da huy");
+        } else {
+            hoaDonList = hoaDonrepo.findAllByOrderByIdDesc();
+        }
+
+        // Xác minh danh sách trả về chỉ chứa trạng thái mong muốn
+        hoaDonList = hoaDonList.stream()
+                .filter(hd -> "Da huy".equalsIgnoreCase(hd.getTrangThaiThanhToan()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("dhh", hoaDonList);
         return "bhonline/dhh";
     }
+
+
+
+
 
 
 
